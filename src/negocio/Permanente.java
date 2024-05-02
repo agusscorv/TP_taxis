@@ -4,8 +4,8 @@ public class Permanente extends Empleado
 {
 	private int cantHijos;
 	private int fecha_ingreso;
-	public static double plus_x_antiguedad=2;
-	public static double plus_x_hijos=2;
+	public static double plus_x_antiguedad = 2;
+	public static double plus_x_hijos = 2;
 
 	public Permanente(String dni, String nombre, double sueldo_basico, int cantHijos, int fecha_ingreso)
 	{

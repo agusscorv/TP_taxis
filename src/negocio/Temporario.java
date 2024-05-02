@@ -3,7 +3,7 @@ package negocio;
 public class Temporario extends Empleado
 {
 	private int cantViajes;
-	public static double plus_x_cantidad_viajes= 10;
+	public static double plus_x_cantidad_viajes = 10;
 
 	public Temporario(String dni, String nombre, double sueldo_basico, int cantViajes)
 	{

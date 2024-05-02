@@ -1,6 +1,7 @@
 package negocio;
 
-public abstract class Chofer {
+public abstract class Chofer
+{
 	private String dni;
 	private String nombre;
 	
@@ -30,5 +31,5 @@ public abstract class Chofer {
 		this.nombre = nombre;
 	}
 	
-	public abstract double getSueldo()
+	public abstract double getSueldo();
 }

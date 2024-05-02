@@ -1,9 +1,10 @@
 package negocio;
 
-public abstract class Empleado extends Chofer {
+public abstract class Empleado extends Chofer
+{
 
 	protected double sueldo_basico;
-	public static double aportes=25; 
+	public static double aportes = 25; 
 	
 	public Empleado(String dni, String nombre, double sueldo_basico)
 	{
