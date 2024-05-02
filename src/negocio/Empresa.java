@@ -92,4 +92,35 @@ public class Empresa { // FALTA HACER EN PRUEBA EL MOSTRAR CLIENTES, CHOFERES, V
 		return chofer;
 	}
 
+	public String muestraClientes() {
+		String texto="";
+		
+		if(clientes.size() == 0) {
+			texto = "No hay clientes";
+		}
+		else {
+			for(int i = 0; clientes.size()>i ; i++) {
+				texto = texto + clientes.get(i).getNombre() + "\n";
+			}
+		}
+		return texto;
+	}
+	
+	public String muestraViajesClondados(){
+		String texto="";
+		
+		ArrayList<Viaje> clonados = new ArrayList<>();
+		
+		try {
+			clonados= clonaYOrdenaViajes(viajes);
+		}
+		
+		
+	}
+
+	private ArrayList<Viaje> clonaYOrdenaViajes(ArrayList<Viaje> viajes2) {
+		// Primero clona elemento a elemento y despues con un compare to y dos whiles los va ordenando 
+		return null;
+	}
+
 }

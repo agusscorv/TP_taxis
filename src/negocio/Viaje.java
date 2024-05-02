@@ -1,6 +1,6 @@
 package negocio;
 
-public abstract class Viaje implements IViaje {
+public abstract class Viaje implements IViaje, Cloneable {
 	private String estado, zona;
 	private Cliente cliente;
 	private Vehiculo vehiculo;
