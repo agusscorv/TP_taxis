@@ -32,4 +32,8 @@ public abstract class Vehiculo {
 	abstract boolean checkBaul(Pedido pedido);
 	
 	abstract int calculo(Pedido pedido);
+
+	public String getPatente() {
+		return patente;
+	}
 }
