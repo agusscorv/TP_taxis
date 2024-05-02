@@ -82,4 +82,8 @@ public abstract class Viaje implements IViaje, Cloneable {
 		return costo + getIncKilometros() + getIncPasajeros();
 	}
 
+	protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+	
 }

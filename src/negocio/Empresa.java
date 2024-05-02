@@ -1,8 +1,8 @@
 package negocio;
 
 import java.util.ArrayList;
-					   // hace un string 
-public class Empresa { // FALTA HACER EN PRUEBA EL MOSTRAR CLIENTES, CHOFERES, VEHICULOS, VIAJES
+					    
+public class Empresa { 
 
 	private ArrayList<Vehiculo> vehiculos;
 	private ArrayList<Chofer> choferes;
@@ -77,7 +77,7 @@ public class Empresa { // FALTA HACER EN PRUEBA EL MOSTRAR CLIENTES, CHOFERES, V
             }
         }
 		if(mejor != null) {
-			vehiculos.remove(k);	//pone el "mejor" al final 
+			vehiculos.remove(k);
 			vehiculos.add(mejor);
 		}
 		else
@@ -106,6 +106,48 @@ public class Empresa { // FALTA HACER EN PRUEBA EL MOSTRAR CLIENTES, CHOFERES, V
 		return texto;
 	}
 	
+	public String muestraChoferes() {
+		String texto="";
+		
+		if(choferes.size() == 0) {
+			texto = "No hay choferes";
+		}
+		else {
+			for(int i = 0; choferes.size()>i ; i++) {
+				texto = texto + choferes.get(i).getNombre() + "\n";
+			}
+		}
+		return texto;
+	}
+	
+	public String muestraVehiculos() {
+		String texto="";
+		
+		if(vehiculos.size() == 0) {
+			texto = "No hay vehiculos";
+		}
+		else {
+			for(int i = 0; vehiculos.size()>i ; i++) {
+				texto = texto + vehiculos.get(i).getPatente()+ "\n";
+			}
+		}
+		return texto;
+	}
+	
+	public String muestraViajes() {  //Consultar que les parece esa informacion de viaje
+		String texto="";
+		
+		if(viajes.size() == 0) {
+			texto = "No hay viajes";
+		}
+		else {
+			for(int i = 0; clientes.size()>i ; i++) {
+				texto = texto + "Viaje de " + viajes.get(i).getCliente().getNombre() + " en el vehiculo de patente " + viajes.get(i).getVehiculo().getPatente() + "\n";
+			}
+		}
+		return texto;
+	}
+	
 	public String muestraViajesClondados(){
 		String texto="";
 		
@@ -118,9 +160,20 @@ public class Empresa { // FALTA HACER EN PRUEBA EL MOSTRAR CLIENTES, CHOFERES, V
 		
 	}
 
-	private ArrayList<Viaje> clonaYOrdenaViajes(ArrayList<Viaje> viajes2) {
+	private ArrayList<Viaje> clonaYOrdenaViajes(ArrayList<Viaje> viajes2) throws noClono { //REVISAR TRY Y CATCH
+		ArrayList<Viaje> viajesClonados = new ArrayList<>();
+		for (int i = 0; i < viajes2.size(); i++) {
+			try {
+				viajesClonados.add((Viaje) viajes2.get(i).clone());
+			}
+			catch (CloneNotSupportedException e){
+				throw new noClono();
+			}
+		}
+		
+		
 		// Primero clona elemento a elemento y despues con un compare to y dos whiles los va ordenando 
-		return null;
+		return viajesClonados;
 	}
 
 }
