@@ -3,7 +3,7 @@ package negocio;
 public abstract class Chofer
 {
 	private String dni;
-	private String nombre;
+	protected String nombre;
 	
 	public Chofer(String dni, String nombre)
 	{

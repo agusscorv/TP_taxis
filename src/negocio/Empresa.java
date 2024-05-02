@@ -1,6 +1,8 @@
 package negocio;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
+
 					   // hace un string 
 public class Empresa { // FALTA HACER EN PRUEBA EL MOSTRAR CLIENTES, CHOFERES, VEHICULOS, VIAJES
 
@@ -9,6 +11,7 @@ public class Empresa { // FALTA HACER EN PRUEBA EL MOSTRAR CLIENTES, CHOFERES, V
 	private ArrayList<Cliente> clientes;
 	private ArrayList<Viaje> viajes;
 	private VehiculoFactory fabrica=new VehiculoFactory();
+	public static GregorianCalendar hoy = new GregorianCalendar();
 	
 	public Empresa() {
 		this.vehiculos = new ArrayList<>();
@@ -17,9 +20,16 @@ public class Empresa { // FALTA HACER EN PRUEBA EL MOSTRAR CLIENTES, CHOFERES, V
 		this.viajes = new ArrayList<>();
 	}
 
+	
 	public void agregarVehiculo(String tipo, String patente) {
+		
+		try{
 		Vehiculo vehiculo = fabrica.getVehiculo(tipo, patente);
 		vehiculos.add(vehiculo);
+		}
+		catch (TipoVehiculoInexistenteException ex){
+			System.out.println("El tipo de vehiculo no fue encontrado");
+		}
 	}
 
 	
@@ -99,7 +109,7 @@ public class Empresa { // FALTA HACER EN PRUEBA EL MOSTRAR CLIENTES, CHOFERES, V
 			texto = "No hay clientes";
 		}
 		else {
-			for(int i = 0; clientes.size()>i ; i++) {
+			for(int i = 0; i < clientes.size() ; i++) {
 				texto = texto + clientes.get(i).getNombre() + "\n";
 			}
 		}
@@ -123,4 +133,23 @@ public class Empresa { // FALTA HACER EN PRUEBA EL MOSTRAR CLIENTES, CHOFERES, V
 		return null;
 	}
 
+	public double CostoViajesMes(String NombreChofer){ //, int mes
+	  int i = 0;
+	  while ( ( i < choferes.size() ) && ( choferes.get(i).getNombre().compareTo(NombreChofer) ) )
+         i++;
+	  if (i == choferes.size())
+		  //Lanzo excepcion no existe chofer //O no hace falta por que getsueldo ya es parte de un chofer, en ese caso nos ahorramos el primer while
+	  else
+	  {
+		  int j =  0;
+		  double SumaCostosViajes = 0; 
+		  
+		  //Falta desarrollar la operacion con el mes indicado, el mes seria parametro enviado desde el main?
+		  while ( ( j < viajes.size() ) &&  UnNumeroDeMes == viajes.get(i).getFecha() ) 
+			  SumaCostosViajes += viajes.get(i).getCosto();
+		  
+		  return SumaCostosViajes;
+	  }
+	  
+	}
 }

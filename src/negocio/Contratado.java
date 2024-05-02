@@ -3,7 +3,7 @@ package negocio;
 public class Contratado extends Chofer
 {
 	public static double ganancia_viaje = 15;
-	private int cant_viajes;
+	//private int cant_viajes;
 
 	public Contratado(String dni, String nombre, int cant_viajes)
 	{
@@ -12,8 +12,8 @@ public class Contratado extends Chofer
 	}
 	
 	@Override
-	public double getSueldo()
+	public double getSueldo() //La fecha iria aca?
 	{
-		return this.cant_viajes * (ganancia_viaje / 100);
-	}
+		return CostosViajesMes(super.nombre) * (ganancia_viaje / 100);
+	} //super.nombre o getNombre?, ahi nombre no seria protected en chofer
 }
