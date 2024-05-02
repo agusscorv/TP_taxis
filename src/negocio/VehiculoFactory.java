@@ -1,6 +1,5 @@
 package negocio;
 
-//Tengo que hacer un main?
 
 public class VehiculoFactory {
 
