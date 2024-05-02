@@ -1,8 +1,8 @@
 package negocio;
 
-public class DecoratorConMascota extends DecoratorMascota {
+public class DecoratorConBaul extends DecoratorBaul {
 
-	public DecoratorConMascota(IViaje aEncapsular) {
+	public DecoratorConBaul(IViaje aEncapsular) {
 		super(aEncapsular);
 	}
 	
@@ -12,7 +12,7 @@ public class DecoratorConMascota extends DecoratorMascota {
 	}
 	@Override
 	public double getIncKilometros() {
-		return getCostoBase()*0.2*getDistancia();
+		return getCostoBase()*0.05*getDistancia();
 	}
 
 }

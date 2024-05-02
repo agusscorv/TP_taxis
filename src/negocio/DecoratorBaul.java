@@ -1,9 +1,9 @@
 package negocio;
 
-public abstract class DecoratorMascota implements IViaje {
-	protected IViaje encapsulado;
+public abstract class DecoratorBaul implements IViaje {
+	IViaje encapsulado;
 
-	public DecoratorMascota(IViaje aEncapsular) {
+	public DecoratorBaul(IViaje aEncapsular) {
 		encapsulado= aEncapsular;
 	}
 
@@ -26,5 +26,4 @@ public abstract class DecoratorMascota implements IViaje {
 	public double getCosto() {// getIncKilometros() y getIncPasajeros() no estan implementados en esta capa aun, pero lo seran en sus decorator hijos :)
 		return encapsulado.getCosto() + getIncKilometros() + getIncPasajeros();
 	}
-	
 }

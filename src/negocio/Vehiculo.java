@@ -1,21 +1,23 @@
 package negocio;
 
 public abstract class Vehiculo {
-	int maxPasajeros;
-	String patente;
+	private int maxPasajeros;
+	private String patente;
 	
-	public Vehiculo() {
-		
+	public Vehiculo(String patente,int maxPasajeros){
+		this.patente=patente;
+		this.maxPasajeros=maxPasajeros;
 	}
 
-	abstract Integer getPrioridad(Pedido pedido) {
+	public int getPrioridad(Pedido pedido) {
 		boolean cond1 = this.checkCantPasajeros(pedido);
-		boolean cond2 = this.checkMascota(pedido);
-		boolean cond3 = this.checkBaul(pedido);
+		boolean cond2 = checkMascota(pedido);
+		boolean cond3 = checkBaul(pedido);
 		
-		if (cond1 && cond2 && cond3) {
-			//realiza el calculo
-		}
+		if (cond1 && cond2 && cond3)
+			return calculo(pedido);
+		else
+			return null;
 	}
 	
 	boolean checkCantPasajeros(Pedido pedido) {
@@ -28,4 +30,6 @@ public abstract class Vehiculo {
 	abstract boolean checkMascota(Pedido pedido);
 	
 	abstract boolean checkBaul(Pedido pedido);
+	
+	abstract int calculo(Pedido pedido);
 }

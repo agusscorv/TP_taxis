@@ -1,11 +1,11 @@
 package negocio;
 
-public class DecoratorSinMascota extends DecoratorMascota {
+public class DecoratorSinBaul extends DecoratorBaul {
 
-	public DecoratorSinMascota(IViaje aEncapsular) {
+	public DecoratorSinBaul(IViaje aEncapsular) {
 		super(aEncapsular);
 	}
-
+	
 	@Override
 	public double getIncPasajeros() {
 		return 0;
@@ -14,7 +14,7 @@ public class DecoratorSinMascota extends DecoratorMascota {
 	public double getIncKilometros() {
 		return 0;
 	}
-
+	
 	
 
 }

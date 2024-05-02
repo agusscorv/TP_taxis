@@ -2,13 +2,15 @@ package negocio;
 
 public interface IViaje {
 	
-	public int getCantPasajeros(Pedido pedido);
+	public int getCantPasajeros();
 	
-	public int getKilometros(Pedido pedido);
+	public double getDistancia();
 	
-	public int getIncPorPasajero(Pedido pedido);
+	public double getIncPasajeros();
 	
-	public int getIncPorKilometros(Pedido pedido);
+	public double getIncKilometros();
 	
-	public int getCosto(Pedido pedido);
+	public double getCostoBase();
+	
+	public double getCosto();
 }

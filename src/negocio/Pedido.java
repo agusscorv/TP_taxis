@@ -1,17 +1,20 @@
 package negocio;
 
-public abstract class Pedido {
-	String fechaYHora, zona;
-	boolean mascota, baul;
-	int cantPasajeros;
-	Cliente cliente;
+public class Pedido {
+	private String zona;
+	private boolean mascota, baul;
+	private int cantPasajeros, hora;
+	private long fecha;
+	private Cliente cliente;
 	
-	public Pedido() {
-		
-	}
-
-	public String getFechaYHora() {
-		return fechaYHora;
+	public Pedido(long fecha, int hora, String zona, boolean mascotas, boolean baul, int cantPasajeros, Cliente cliente) {
+		this.fecha=fecha;
+		this.hora= hora;
+		this.zona= zona;
+		this.mascota= mascotas;
+		this.baul= baul;
+		this.cantPasajeros = cantPasajeros;
+		this.cliente = cliente;
 	}
 
 	public String getZona() {
@@ -33,7 +36,13 @@ public abstract class Pedido {
 	public Cliente getCliente() {
 		return cliente;
 	}
+
+	public long getFecha() {
+		return fecha;
+	}
 	
-	
+	public int getHora() {
+		return hora;
+	}
 	
 }
