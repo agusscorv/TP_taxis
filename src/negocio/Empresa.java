@@ -1,13 +1,14 @@
 package negocio;
 
 import java.util.ArrayList;
-
+					   // hace un string 
 public class Empresa { // FALTA HACER EN PRUEBA EL MOSTRAR CLIENTES, CHOFERES, VEHICULOS, VIAJES
 
 	private ArrayList<Vehiculo> vehiculos;
 	private ArrayList<Chofer> choferes;
 	private ArrayList<Cliente> clientes;
 	private ArrayList<Viaje> viajes;
+	private VehiculoFactory fabrica=new VehiculoFactory();
 	
 	public Empresa() {
 		this.vehiculos = new ArrayList<>();
@@ -17,8 +18,18 @@ public class Empresa { // FALTA HACER EN PRUEBA EL MOSTRAR CLIENTES, CHOFERES, V
 	}
 
 	public void agregarVehiculo(String tipo, String patente) {
-		VehiculoFactory.getVehiculo(tipo, patente);
+		Vehiculo vehiculo = fabrica.getVehiculo(tipo, patente);
 		vehiculos.add(vehiculo);
+	}
+
+	
+	
+	public VehiculoFactory getFabrica() {
+		return fabrica;
+	}
+
+	public void setFabrica(VehiculoFactory fabrica) {
+		this.fabrica = fabrica;
 	}
 
 	public void agregarChofer(Chofer chofer) {
@@ -54,25 +65,31 @@ public class Empresa { // FALTA HACER EN PRUEBA EL MOSTRAR CLIENTES, CHOFERES, V
 		Viaje.setCostoBase(costoBase);
 	}
 
-	public Vehiculo seleccionaMejorVehiculo(Pedido pedido) {
+	public Vehiculo seleccionaMejorVehiculo(Pedido pedido)throws FaltaDeVehiculoException{
 		int mayor = -1;
-		int k;
-		Vehiculo mejor;
+		int k = 0;
+		Vehiculo mejor = null;
 		for (int i = 1; i < vehiculos.size(); i++) {
-            if (vehiculos.get(i).getPrioridad() > mayor) {
-                mayor = vehiculos.get(i).getPrioridad();
+            if (vehiculos.get(i).getPrioridad(pedido) > mayor) {
+                mayor = vehiculos.get(i).getPrioridad(pedido);
                 mejor = vehiculos.get(i);
                 k=i;
             }
         }
-		vehiculos.remove(k);	//pone el "mejor" al final 
-		vehiculos.add(mejor);
+		if(mejor != null) {
+			vehiculos.remove(k);	//pone el "mejor" al final 
+			vehiculos.add(mejor);
+		}
+		else
+			throw new FaltaDeVehiculoException();
 		return mejor;
 	}
 
 	public Chofer seleccionaChofer(Pedido pedido) {
-		
-		return null;
+		Chofer chofer = choferes.get(0);
+		choferes.remove(0);
+		choferes.add(chofer);
+		return chofer;
 	}
 
 }

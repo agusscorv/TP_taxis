@@ -17,11 +17,11 @@ public abstract class Vehiculo {
 		if (cond1 && cond2 && cond3)
 			return calculo(pedido);
 		else
-			return null;
+			return -1;
 	}
 	
 	boolean checkCantPasajeros(Pedido pedido) {
-		if (pedido.pasajeros > this.maxPasajeros)
+		if (pedido.getCantPasajeros() > this.maxPasajeros)
 			return false;
 		else
 			return true;

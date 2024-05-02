@@ -29,16 +29,17 @@ public class Cliente {
 	}
 
 	//Falta que no se pueda repetir nombre de usuario. no se como hacerlo, si en el constructor o como
+	//Creo el cliente, se lo mando a empresa, chequea si ya esta y si ya esta no lo agrega
+	//y manda una excepcion(queda ahi suelto el cliente, no se elimina ni nada. Si no esta, lo agrega
 	
-	//PAGAR VIAJE como seria? tiene dinero?
 	
+	//PAGAR VIAJE como seria? tiene dinero?     pondria en condicion de pagado el viaje
 	
-	//CALIFICAR CHOFER
 	
 	public void getViajesPropios(Cliente cliente) { //falta algortimo en empresa o en prueba que lo busque 
 		for (int i = 0; i < viajes.size(); i++){
 				//escribir el viaje??
-			
+				//debo hacerlo con el String
 		}
 	}
 	
