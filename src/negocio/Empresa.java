@@ -3,8 +3,8 @@ package negocio;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-					   // hace un string 
-public class Empresa { // FALTA HACER EN PRUEBA EL MOSTRAR CLIENTES, CHOFERES, VEHICULOS, VIAJES
+					  
+public class Empresa { 
 
 	private ArrayList<Vehiculo> vehiculos;
 	private ArrayList<Chofer> choferes;
@@ -116,23 +116,87 @@ public class Empresa { // FALTA HACER EN PRUEBA EL MOSTRAR CLIENTES, CHOFERES, V
 		return texto;
 	}
 	
-	public String muestraViajesClondados(){
+	public String muestraChoferes() {
 		String texto="";
 		
-		ArrayList<Viaje> clonados = new ArrayList<>();
+		if(choferes.size() == 0) {
+			texto = "No hay choferes";
+		}
+		else {
+			for(int i = 0; choferes.size()>i ; i++) {
+				texto = texto + choferes.get(i).getNombre() + "\n";
+			}
+		}
+		return texto;
+	}
+	
+	public String muestraVehiculos() {
+		String texto="";
 		
-		try {
-			clonados= clonaYOrdenaViajes(viajes);
+		if(vehiculos.size() == 0) {
+			texto = "No hay vehiculos";
+		}
+		else {
+			for(int i = 0; vehiculos.size()>i ; i++) {
+				texto = texto + vehiculos.get(i).getPatente()+ "\n";
+			}
+		}
+		return texto;
+	}
+	
+	public String muestraViajes() throws noClono{  //Consultar que les parece esa informacion de viaje
+		String texto="";
+		
+		if(viajes.size() == 0) {
+			texto = "No hay viajes";
+		}
+		else {
+			ArrayList<Viaje> viajesClonados = new ArrayList<>(); 
+			viajesClonados = this.clonaYOrdenaViajes(viajes);
+			for(int i = 0; viajesClonados.size()>i ; i++) {
+				texto = texto + "Viaje de " + viajesClonados.get(i).getCliente().getNombre() + " en el vehiculo de patente " + viajesClonados.get(i).getVehiculo().getPatente() + "\n";
+			}
+		}
+		return texto;
+	}
+	
+	
+	
+	private ArrayList<Viaje> clonaYOrdenaViajes(ArrayList<Viaje> viajes2) throws noClono { //REVISAR TRY Y CATCH
+		ArrayList<Viaje> viajesClonados = new ArrayList<>();
+		int i;
+		int j;
+		int indiceSacar = -1;
+		Viaje viajeAgregar = null;
+		
+		for ( i = 0; i < viajes2.size(); i++) {
+			try {
+				viajesClonados.add((Viaje) viajes2.get(i).clone());
+			}
+			catch (CloneNotSupportedException e){
+				throw new noClono();
+			}
+		}
+		for (i = 0; i < viajes2.size(); i++) {
+			viajeAgregar = viajes2.get(i);
+			indiceSacar = i;
+			for (j = i; j < viajes2.size(); j++) {
+				if (viajes2.get(i).compareTo(viajes2.get(j)) == 0){
+					viajeAgregar = viajes2.get(j);
+					indiceSacar = j;
+				}
+			}
+			viajes2.remove(indiceSacar);
+			viajes2.add(viajeAgregar);
 		}
 		
+		// Primero clona elemento a elemento y despues con un compare to y dos for los va ordenando 
 		
+		return viajesClonados;
 	}
 
-	private ArrayList<Viaje> clonaYOrdenaViajes(ArrayList<Viaje> viajes2) {
-		// Primero clona elemento a elemento y despues con un compare to y dos whiles los va ordenando 
-		return null;
-	}
 
+	
 	public double CostoViajesMes(String NombreChofer){ //, int mes
 	  int i = 0;
 	  while ( ( i < choferes.size() ) && ( choferes.get(i).getNombre().compareTo(NombreChofer) ) )

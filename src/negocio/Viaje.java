@@ -1,6 +1,6 @@
 package negocio;
 
-public abstract class Viaje implements IViaje, Cloneable {
+public abstract class Viaje implements IViaje, Cloneable, Comparable {
 	private String estado, zona;
 	private Cliente cliente;
 	private Vehiculo vehiculo;
@@ -9,6 +9,18 @@ public abstract class Viaje implements IViaje, Cloneable {
 	private int cantPasajeros;
 	private boolean mascota, baul;
 	private static float costoBase= 1000;
+	
+	public int compareTo(Object obj) {
+		int rta = -1;
+		Viaje viaje = (Viaje) obj;
+	
+		if (this.getCosto() <= viaje.getCosto())
+			rta = 1;
+		else
+			rta = 0;
+		
+		return rta;
+	}
 	
 	public Viaje(Pedido pedido)throws FaltaDeChoferException, FaltaDeVehiculoException {
 		
@@ -86,4 +98,7 @@ public abstract class Viaje implements IViaje, Cloneable {
         return super.clone();
     }
 	
-}
+	
+		
+}	
+
