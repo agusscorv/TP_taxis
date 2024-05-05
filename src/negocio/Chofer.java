@@ -7,6 +7,7 @@ public abstract class Chofer
 {
 	private String dni;
 	protected String nombre;
+	private int puntaje=0;
 	
 	/**
 	 * Constructor del chofer
@@ -43,6 +44,26 @@ public abstract class Chofer
 	public void setNombre(String nombre)
 	{
 		this.nombre = nombre;
+	}
+	
+	/** Suma el puntaje mensual del chofer
+     * pre: puntuacion >= 0
+     * post: modifica el puntaje del chofer
+     * @param puntuacion brindada al chofer en base a los viajes realizados y su distancia
+     */
+	public void addPuntaje(int puntuacion) {
+		this.puntaje += puntuacion;
+	}
+
+
+	
+	public void setPuntaje(int puntaje) {
+		this.puntaje = puntaje;
+	}
+
+
+	public int getPuntaje() {
+		return puntaje;
 	}
 	
 	/**

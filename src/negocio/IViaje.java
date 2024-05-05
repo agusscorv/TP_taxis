@@ -33,4 +33,19 @@ public interface IViaje {
 	 * Post: Devuelve el costo final teniendo en cuenta getIncKilometros() y getIncPasajeros() 
 	 */
 	public double getCosto();
+	
+	//public double getCostoFinal();
+	
+	public Cliente getCliente();
+	
+	public Vehiculo getVehiculo();
+	
+	public Chofer getChofer();
+	
+	public int compareTo(Object obj);
+	
+	public void Pagado();
+	
+	public Object clone() throws CloneNotSupportedException;
+	
 }

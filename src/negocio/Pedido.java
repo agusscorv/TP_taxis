@@ -9,6 +9,7 @@ public class Pedido {
 	private String zona;
 	private boolean mascota, baul;
 	private int cantPasajeros;
+	private double distancia;
 	private GregorianCalendar fecha;
 	private Cliente cliente;
 	
@@ -25,7 +26,8 @@ public class Pedido {
 	 * @param cantPasajeros: cantidad de pasajeros que viajaran
 	 * @param cliente: cliente que hizo el pedido
 	 */
-	public Pedido(GregorianCalendar fecha, String zona, boolean mascotas, boolean baul, int cantPasajeros, Cliente cliente) {
+	public Pedido(double distancia, GregorianCalendar fecha, String zona, boolean mascotas, boolean baul, int cantPasajeros, Cliente cliente) {
+		this.distancia= distancia;
 		this.fecha=fecha;
 		this.zona= zona;
 		this.mascota= mascotas;
@@ -52,6 +54,10 @@ public class Pedido {
 
 	public Cliente getCliente() {
 		return cliente;
+	}
+
+	public double getDistancia() {
+		return distancia;
 	}
 
 	public GregorianCalendar getFecha() {

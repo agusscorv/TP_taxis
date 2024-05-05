@@ -29,6 +29,6 @@ public class Contratado extends Chofer
 	@Override
 	public double getSueldo()
 	{
-		return empresa.CostoViajesMes(this) * (ganancia_viaje / 100);
+		return empresa.costoViajesMes(this) * (ganancia_viaje / 100);
 	}
 }

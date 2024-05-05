@@ -9,7 +9,7 @@ public class Empresa {
 	private ArrayList<Vehiculo> vehiculos;
 	private ArrayList<Chofer> choferes;
 	private ArrayList<Cliente> clientes;
-	private ArrayList<Viaje> viajes;
+	private ArrayList<IViaje> viajes;
 	private VehiculoFactory fabrica=new VehiculoFactory();
 	private ViajeFactory fabricaViajes=new ViajeFactory();
 	public GregorianCalendar hoy = new GregorianCalendar();
@@ -65,7 +65,7 @@ public class Empresa {
 	 * @param nombre = nombre del chofer temporario
 	 * @param sueldo_basico = sueldo del chofer temporario
 	 */
-	public void agregarTemporario(String dni, String nombre, double sueldo_basico, int cantViajes) {
+	public void agregarTemporario(String dni, String nombre, double sueldo_basico) {
 		Chofer chofer = new Temporario(dni, nombre, sueldo_basico);
 		choferes.add(chofer);
 	}
@@ -98,10 +98,11 @@ public class Empresa {
 	 * agrega el cliente o lanza una excepcion
 	 * @throws ClienteExistente en el caso que el usuarioya se encuentre en el ArrayList
 	 */
-	public void agregarCliente(String user, String contrasena, String nombre)throws ClienteExistenteException {
+	public Cliente agregarCliente(String user, String contrasena, String nombre)throws ClienteExistenteException {
 		if (buscarElemento(this.clientes, user) == -1) {
 			Cliente cliente = new Cliente(user, contrasena, nombre);
 			clientes.add(cliente);
+			return cliente;
 		}
 		else {
 			throw new ClienteExistenteException();
@@ -148,10 +149,10 @@ public class Empresa {
 	 * @param cliente: cliente que hizo el pedido
 	 */
 	
-	public void solicitaViaje(GregorianCalendar fecha, String zona, boolean mascotas, boolean baul, int cantPasajeros, Cliente cliente) 
+	public void solicitaViaje(double distancia, GregorianCalendar fecha, String zona, boolean mascotas, boolean baul, int cantPasajeros, Cliente cliente) 
 			throws FaltaDeChoferException, FaltaDeVehiculoException, ZonaInexistenteException{
-		Pedido pedido= new Pedido(fecha, zona, mascotas, baul, cantPasajeros, cliente);
-		Viaje viaje= (Viaje) fabricaViajes.getViaje(pedido);
+		Pedido pedido= new Pedido(distancia, fecha, zona, mascotas, baul, cantPasajeros, cliente);
+		IViaje viaje= (IViaje) fabricaViajes.getViaje(pedido);
 		viajes.add(viaje);
 		viaje.Pagado();
 	}
@@ -235,7 +236,7 @@ public class Empresa {
 		}
 		else {
 			for(int i = 0; choferes.size()>i ; i++) {
-				texto = texto + choferes.get(i).getNombre() + "\n";
+				texto = texto + choferes.get(i).getNombre() + ", Puntaje del mes solicitado: "+ choferes.get(i).getPuntaje() + "\n";
 			}
 		}
 		return texto;
@@ -272,7 +273,7 @@ public class Empresa {
 			texto = "No hay viajes";
 		}
 		else {
-			ArrayList<Viaje> viajesClonados = new ArrayList<>(); 
+			ArrayList<IViaje> viajesClonados = new ArrayList<>(); 
 			viajesClonados = this.clonaYOrdenaViajes(viajes);
 			for(int i = 0; viajesClonados.size()>i ; i++) {
 				texto = texto + "Viaje de " + viajesClonados.get(i).getCliente().getNombre() + " en el vehiculo de patente " + viajesClonados.get(i).getVehiculo().getPatente()+ "con un costo de: $" + viajesClonados.get(i).getCosto() + "\n";
@@ -294,6 +295,7 @@ public class Empresa {
 		for(int i = 0; viajes.size() > i ; i++) {
 			if( viajes.get(i).getCliente().getUser().equals(cliente.getUser())) {
 				texto = texto + "Viaje en vehiculo de patente " + viajes.get(i).getVehiculo().getPatente() + "con un costo de: $" + viajes.get(i).getCosto() + "\n";
+				bandera=1;
 			}
 		}
 		if (bandera == 0)
@@ -311,16 +313,17 @@ public class Empresa {
 	 */
 
 	
-	private ArrayList<Viaje> clonaYOrdenaViajes(ArrayList<Viaje> viajes2) throws CloneNotSupportedException { //REVISAR TRY Y CATCH
-		ArrayList<Viaje> viajesClonados = new ArrayList<>();
+	private ArrayList<IViaje> clonaYOrdenaViajes(ArrayList<IViaje> viajes2) throws CloneNotSupportedException {
+		ArrayList<IViaje> viajesClonados = new ArrayList<>();
 		int i;
 		int j;
 		int indiceSacar = -1;
-		Viaje viajeSacar = null;
+		IViaje viajeSacar = null;
 		
 		for ( i = 0; i < viajes2.size(); i++) {
 			try {
-				viajesClonados.add((Viaje) viajes2.get(i).clone());
+				viajesClonados.add((IViaje) viajes2.get(i).clone());
+				System.out.println( viajes2.get(i).getCosto() + " deberia ser igual  " + viajesClonados.get(i).getCosto());
 			}
 			catch (CloneNotSupportedException e){
 				
@@ -350,7 +353,8 @@ public class Empresa {
 		double acum = 0;
 		if(choferes.size() != 0) {
 			for(int i = 0; choferes.size()>i ; i++) {
-				acum = choferes.get(i).getSueldo();
+				System.out.println( choferes.get(i).getNombre()+ "   $" + choferes.get(i).getSueldo());
+				acum += choferes.get(i).getSueldo();
 			}
 		}
 		return acum;
@@ -405,6 +409,107 @@ public class Empresa {
 		  return CantViajesMes;
 	  }
 	
+	/** Calcula el puntaje de cada chofer para un mes especifico dado en base a los viajes realizados por los choferes y su distancia recorrida
+	 * pre: mes>=1, mes<=12
+	 * post: actualiza el puntaje del mes especifico dado de cada chofer
+	 * @param mes donde se calcula el puntaje
+	 */
+	public void puntajeChoferes(int mes)
+	{
+		int i,j;
+		Chofer choferMax=null;
+		double distanciaMax=0;
+		for (i = 0; i < choferes.size();i++){
+			j=0;
+			choferes.get(i).setPuntaje(0);
+		    while (j<viajes.size()   &&   mes <= viajes.get(j).getFecha().get(2)) {
+			   if ( ( mes == viajes.get(j).getFecha().get(2) )) { //Si el mes es el buscado
+				   if ( viajes.get(j).getChofer() == choferes.get(i) ){ //El chofer tuvo un viaje en ese mes
+				      choferes.get(i).addPuntaje(5);
+			          if (viajes.get(j).getDistancia() > distanciaMax){
+				        distanciaMax=viajes.get(j).getDistancia();
+				        choferMax = viajes.get(j).getChofer();
+			          }
+			       }
+
+		      }
+			   j++;
+		    }
+		}
+		if (choferMax!=null) {
+			choferMax.addPuntaje(15);
+			muestraChoferes();
+		}
+	}
+	
+	/**
+	 * Arma el listado de viajes de un chofer en un determinado periodo de tiempo
+	 * pre:
+	 * @param chofer distinto de null y existente
+	 * @param fechaInicio distinto de null 
+	 * @param fechaFinal distinto de null
+	 * post:
+	 * @return un String con el listado para poder imprimir por pantalla
+	 */
+	public String viajesChoferPeriodo(Chofer chofer, GregorianCalendar fechaInicio, GregorianCalendar fechaFinal) {
+		String texto = "Viajes de " + chofer.getNombre() + " desde: " + fechaInicio.toString() + " hasta: " + fechaFinal.toString() + "\n";
+		int j = 0;
+		
+		while (j <= viajes.size()-1 && viajes.get(j).getFecha().compareTo(fechaInicio) < 0) {
+			j++;
+		}
+		
+		while (j <= viajes.size()-1 && viajes.get(j).getFecha().compareTo(fechaFinal) >= 0) {
+			if(viajes.get(j).getChofer().getDni().equals(chofer.getDni())) {
+				texto = texto + "Llevo a " + viajes.get(j).getCliente().getNombre() + " durante " + viajes.get(j).getDistancia() + "km\n";
+			}
+			j++;			
+		}
+		return texto;
+	}
+	
+	/**
+	 * Arma el listado de viajes de un cliente en un determinado periodo de tiempo
+	 * @param cliente distinto de null y existente
+	 * @param fechaInicio distinto de null
+	 * @param fechaFinal distinto de null
+	 * post:
+	 * @return un String con el listado para poder imprimir por pantalla
+	 */
+	public String viajesClientePeriodo(Cliente cliente, GregorianCalendar fechaInicio, GregorianCalendar fechaFinal) {
+		String texto = "Viajes de " + cliente.getUser() + " desde: " + fechaInicio.toString() + " hasta: " + fechaFinal.toString() + "\n";
+		int j = 0;
+
+		while (j <= viajes.size()-1 && viajes.get(j).getFecha().compareTo(fechaInicio) < 0) {
+			j++;			
+		}
+		
+		while (j <= viajes.size()-1 && viajes.get(j).getFecha().compareTo(fechaFinal) >= 0) {
+			if(viajes.get(j).getCliente().getUser().equals(cliente.getUser())) {
+				texto = texto + "Viajó durante " + viajes.get(j).getDistancia() + "km\n";
+			}
+		}
+		return texto;
+	}
+	
+	
+	
+	
+	/**
+	 * Devuelve el listado de choferes junto al salario de cada uno
+	 * @return texto
+	 */
+	
+	public String salariosCadaChofer() {
+		String texto = "Sueldos de cada chofer:\n";
+		
+		for(int i = 0; i < choferes.size(); i++) {
+			texto = choferes.get(i).nombre + " gana: $" + choferes.get(i).getSueldo();
+		}
+		
+		return texto;
+	}
+	
 	/**
 	 * Permite el cambio del nombre de chofer
 	 * @param documento distitno de "" y null
@@ -417,16 +522,6 @@ public class Empresa {
 				choferes.get(i).setNombre(nombreNuevo);
 			}
 		}
-	}
-	
-	public String salariosCadaChofer() {
-		String texto = "Sueldos de cada chofer:\n";
-		
-		for(int i = 0; i < choferes.size(); i++) {
-			texto = choferes.get(i).nombre + " gana: $" + choferes.get(i).getSueldo();
-		}
-		
-		return texto;
 	}
 	
 	/**

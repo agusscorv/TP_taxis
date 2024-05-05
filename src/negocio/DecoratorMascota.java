@@ -19,6 +19,30 @@ public abstract class DecoratorMascota implements IViaje {
 	public DecoratorMascota(IViaje aEncapsular) {
 		encapsulado= aEncapsular;
 	}
+	
+	public Cliente getCliente() {
+		return encapsulado.getCliente();
+	}
+	
+	public Vehiculo getVehiculo() {
+		return encapsulado.getVehiculo();
+	}
+	
+	public Chofer getChofer() {
+		return encapsulado.getChofer();
+	}
+	
+	public int compareTo(Object obj) {
+		return encapsulado.compareTo(obj);
+	}
+	
+	public void Pagado() {
+		encapsulado.Pagado();
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		return encapsulado.clone();
+	}
 
 	@Override
 	public int getCantPasajeros() {

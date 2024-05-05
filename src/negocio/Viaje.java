@@ -10,7 +10,7 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 	private Vehiculo vehiculo;
 	private Pedido pedido;
 	private Chofer chofer;
-	private double costo, distancia;
+	private double costo, costoFinal;
 	private static float costoBase= 1000;
 	private Empresa empresa = Empresa.obtenerInstancia(); //pq va a ser singleton
 	
@@ -26,7 +26,6 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 		
 		this.pedido= pedido;
 		this.costo= costoBase; 
-		//this.distancia= cliente.getDistanciaViaje(); //el cliente tiene un ATRIBUTO q es la distancia
 		this.estado="Solicidato";
 		
 		this.vehiculo= empresa.seleccionaMejorVehiculo(pedido); //throws FaltaDeVehiculoException
@@ -46,7 +45,7 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 	 */
 	public int compareTo(Object obj) {
 		int rta = -1;
-		Viaje viaje = (Viaje) obj;
+		IViaje viaje = (IViaje) obj;
 		
 		if (this.getCosto() <= viaje.getCosto())
 			rta = 1;
@@ -66,6 +65,10 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 
 	public String getZona() {
 		return pedido.getZona();
+	}
+
+	public double getDistancia() {
+		return pedido.getDistancia();
 	}
 
 	public Cliente getCliente() {
@@ -98,11 +101,6 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 		return pedido.getCantPasajeros();
 	}
 
-	@Override
-	public double getDistancia() {
-		return distancia;
-	}
-
 	/**
 	 * Calculo del costo final del viaje, que dependera de sus respectivos incrementos
 	 * 
@@ -129,7 +127,12 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 		estado="Finalizado";
 	}
 	
-	protected Object clone() throws CloneNotSupportedException {
+	public double getCostoFinal() {
+		return costoFinal;
+	}
+
+	public Object clone() throws CloneNotSupportedException {
+		//costoFinal= getCosto();
         return super.clone();
     }
 		
