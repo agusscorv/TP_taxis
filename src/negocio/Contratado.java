@@ -8,7 +8,7 @@ package negocio;
 public class Contratado extends Chofer
 {
 	public static double ganancia_viaje = 15;
-	Empresa empresa = Empresa.obtenerInstancia();
+	private Empresa empresa = Empresa.obtenerInstancia();
 
 	/**
 	 * Constructor del chofer contratado

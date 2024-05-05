@@ -12,6 +12,7 @@ public class Permanente extends Empleado
 	private GregorianCalendar fecha_ingreso;
 	public static double plus_x_antiguedad = 2;
 	public static double plus_x_hijos = 2;
+	private Empresa empresa = Empresa.obtenerInstancia();
 
 	/**
 	 * Constructor del chofer permanente
@@ -65,7 +66,7 @@ public class Permanente extends Empleado
 	 * Post: Devuelve un entero correspondiente a la cantidad de anios de antiguedad del chofer permanente
 	 */
 	public int GetAntiguedad(){ //Devuelve los anios de antiguedad del chofer
-		long difAnios = Empresa.hoy.get(1) - this.fecha_ingreso.get(1);
+		long difAnios = empresa.hoy.get(1) - this.fecha_ingreso.get(1);
 		return (int) (difAnios); //Redondea bien?
 	}
 }

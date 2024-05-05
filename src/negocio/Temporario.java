@@ -6,8 +6,8 @@ package negocio;
  */
 public class Temporario extends Empleado
 {
-	private int cantViajes;
 	public static double plus_x_cantidad_viajes = 10;
+	private Empresa empresa= Empresa.obtenerInstancia();
 
 	/**
 	 * Constructor del chofer temporario

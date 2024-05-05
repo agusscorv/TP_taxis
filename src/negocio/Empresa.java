@@ -12,7 +12,8 @@ public class Empresa {
 	private ArrayList<Viaje> viajes;
 	private VehiculoFactory fabrica=new VehiculoFactory();
 	private ViajeFactory fabricaViajes=new ViajeFactory();
-	public static GregorianCalendar hoy = new GregorianCalendar();
+	public GregorianCalendar hoy = new GregorianCalendar();
+	private static Empresa instancia = null;
 	
 	public Empresa() {
 		this.vehiculos = new ArrayList<>();
@@ -56,10 +57,9 @@ public class Empresa {
 	 * @param dni = documento identificatorio del chofer temporario
 	 * @param nombre = nombre del chofer temporario
 	 * @param sueldo_basico = sueldo del chofer temporario
-	 * @param cantViajes = cantidad de viajes que realizo el chofer temporario
 	 */
 	public void agregarTemporario(String dni, String nombre, double sueldo_basico, int cantViajes) {
-		Chofer chofer = new Temporario(dni, nombre, sueldo_basico, cantViajes);
+		Chofer chofer = new Temporario(dni, nombre, sueldo_basico);
 		choferes.add(chofer);
 	}
 	
@@ -121,7 +121,7 @@ public class Empresa {
 	 * Procesa el viaje solicitado por un Cliente existente en la lista de clientes (o propaga la excepcion)
 	 *  
 	 * Pre: fecha= GregorianCalendar valida; zona != null && !=""; cantPasjeros>0, cliente!=null
-	 * Post: propaga una excepcion o solicita un viaje
+	 * Post: propaga una excepcion o solicita un viaje y lo agrega a la lista de viajes
 	 *  
 	 * @param fecha: fecha y hora del pedido
 	 * @param zona: String con el nombre de la zona
@@ -135,6 +135,7 @@ public class Empresa {
 			throws FaltaDeChoferException, FaltaDeVehiculoException, ZonaInexistenteException{
 		Pedido pedido= new Pedido(fecha, zona, mascotas, baul, cantPasajeros, cliente);
 		Viaje viaje= (Viaje) fabricaViajes.getViaje(pedido);
+		viajes.add(viaje);
 		viaje.Pagado();
 	}
 	
@@ -324,4 +325,14 @@ public class Empresa {
 		
 			  return CantViajesMes;
 		  }
+		
+		public static Empresa obtenerInstancia() {
+
+	        if (instancia == null) {
+	            instancia = new Empresa();
+	        }
+
+	        return instancia;
+	    }
+		
 }

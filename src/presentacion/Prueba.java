@@ -36,10 +36,10 @@ public class Prueba {
 		Chofer chofer1= new Contratado("123123123", "PEPE Lapa");
 		
 		try {
-			IViaje viaje= fabricaViajes.getViaje(pedido, chofer1);
-			IViaje viaje2= fabricaViajes.getViaje(pedido2, chofer1);
-			IViaje viaje3= fabricaViajes.getViaje(pedido3, chofer1);
-			IViaje viaje4= fabricaViajes.getViaje(pedido4, chofer1);
+			IViaje viaje= fabricaViajes.getViaje(pedido);
+			IViaje viaje2= fabricaViajes.getViaje(pedido2);
+			IViaje viaje3= fabricaViajes.getViaje(pedido3);
+			IViaje viaje4= fabricaViajes.getViaje(pedido4);
 		} catch (FaltaDeChoferException | FaltaDeVehiculoException | ZonaInexistenteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
