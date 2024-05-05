@@ -21,8 +21,15 @@ public class Empresa {
 		this.clientes = new ArrayList<>();
 		this.viajes = new ArrayList<>();
 	}
-
 	
+	/**
+	 * Ingresa el vehiculo al sistema y luego lo agrega al ArrayList.
+	 * pre:
+	 * @param tipo distinto de null y de ""
+	 * @param patente distinto de null y de ""
+	 * 
+	 * post: catchea una excepcion o crea el vehiculo
+	 */
 	public void agregarVehiculo(String tipo, String patente) {
 		
 		try{
@@ -74,19 +81,30 @@ public class Empresa {
 	 * @param sueldo_basico: sueldo del chofer permanente
 	 * @param cantHijos: cantidad de hijos del chofer permanente
 	 * @param fecha_ingreso: fecha de ingreso a la empresa del chofer permanente
+	 * 
 	 */
 	public void agregarPermanente(String dni, String nombre, double sueldo_basico, int cantHijos, GregorianCalendar fecha_ingreso) {
 		Chofer chofer = new Permanente(dni, nombre, sueldo_basico, cantHijos, fecha_ingreso);
 		choferes.add(chofer);
 	}
 	
-	public void agregarCliente(String user, String contrasena, String nombre)throws ClienteExistente {
-		int x = 0;
-		if (buscarElemento(this.clientes, user) != -1) {
+	/**
+	 * Agrega el cliente siempre que el mismo no exista, puede lanzar Excepcion
+	 * pre:
+	 * @param user distinto de null y ""
+	 * @param contrasena distinto de null y ""
+	 * @param nombre distinto de null y ""
+	 * post
+	 * agrega el cliente o lanza una excepcion
+	 * @throws ClienteExistente en el caso que el usuarioya se encuentre en el ArrayList
+	 */
+	public void agregarCliente(String user, String contrasena, String nombre)throws ClienteExistenteException {
+		if (buscarElemento(this.clientes, user) == -1) {
+			Cliente cliente = new Cliente(user, contrasena, nombre);
 			clientes.add(cliente);
 		}
 		else {
-			throw new ClienteExistente();
+			throw new ClienteExistenteException();
 		}	
 	}
 	
@@ -98,24 +116,23 @@ public class Empresa {
 		this.fabrica = fabrica;
 	}
 
-	
-
-	
-
+	/**
+	 * Metodo para buscar un cliente en el ArrayList a través del usuario
+	 * pre:
+	 * @param clientes distinto de null
+	 * @param userBuscado distinto de null y ""
+	 * post:
+	 * @return devuelve la posicion en el arraylist o -1 si no lo encontro
+	 */
 	public static int buscarElemento(ArrayList<Cliente> clientes, String userBuscado) {
 		
-        for (int i = 0; i < lista.size(); i++) {
+        for (int i = 0; i < clientes.size(); i++) {
             if (clientes.get(i).getUser().equals(userBuscado)) {
                 return i;
             }
         }
         return -1;
     }
-	
-	public void agregarViaje(Viaje viaje) {
-		viajes.add(viaje);
-	}
-	
 	
 	/**
 	 * Procesa el viaje solicitado por un Cliente existente en la lista de clientes (o propaga la excepcion)
@@ -143,6 +160,14 @@ public class Empresa {
 		Viaje.setCostoBase(costoBase);
 	}
 
+	/**
+	 * Elige el vehiculo adecuado para el Pedido reciente, ademas pone el vehiculo al final del Arraylist. Puede lanzar Excepcion
+	 * pre:
+	 * @param pedido distinto de null
+	 * post
+	 * @return el mejor auto para el pedido
+	 * @throws FaltaDeVehiculoException en el caso que no haya vehiculos disponibles
+	 */
 	public Vehiculo seleccionaMejorVehiculo(Pedido pedido)throws FaltaDeVehiculoException{
 		int mayor = -1;
 		int k = 0;
@@ -162,6 +187,14 @@ public class Empresa {
 			throw new FaltaDeVehiculoException();
 		return mejor;
 	}
+	
+	/**
+	 * Toma el primer chofer disponible
+	 * pre:
+	 * @param pedido distinto de null
+	 * post:
+	 * @return el mejor chofer
+	 */
 
 	public Chofer seleccionaChofer(Pedido pedido) {
 		Chofer chofer = choferes.get(0);
@@ -169,6 +202,11 @@ public class Empresa {
 		choferes.add(chofer);
 		return chofer;
 	}
+	
+	/**
+	 * Concatena en un String el listado de clientes
+	 * @return el string en cuestion
+	 */
 
 	public String muestraClientes() {
 		String texto="";
@@ -184,6 +222,11 @@ public class Empresa {
 		return texto;
 	}
 	
+	/**
+	 * Concatena en un String el listado de choferes
+	 * @return devuelve el string
+	 */
+	
 	public String muestraChoferes() {
 		String texto="";
 		
@@ -198,6 +241,10 @@ public class Empresa {
 		return texto;
 	}
 	
+	/**
+	 * Concatena en un String el listado de vehiculos 
+	 * @return el string texto
+	 */
 	public String muestraVehiculos() {
 		String texto="";
 		
@@ -212,7 +259,13 @@ public class Empresa {
 		return texto;
 	}
 	
-	public String muestraViajes() throws noClono{  //Consultar que les parece esa informacion de viaje
+	/**
+	 * Verifica que viajes no sea nulo, clona el arraylist y lo recorre formando un String para posteriormente mostrar por pantalla, previamente llama a orto metodo
+	 * @return un string
+	 * @throws CloneNotSupportedException si no se pudo clonar
+	 */
+	
+	public String muestraViajes() throws CloneNotSupportedException{  //Consultar que les parece esa informacion de viaje
 		String texto="";
 		
 		if(viajes.size() == 0) {
@@ -227,6 +280,12 @@ public class Empresa {
 		}
 		return texto;
 	}
+	
+	/**
+	 * Devuelve un string con los viajes de un cliente en particular
+	 * @param cliente distinto de null;
+	 * @return string 
+	 */
 	
 	public String muestraViajesCliente(Cliente cliente) {
 		String texto="Viajes de " + cliente.getNombre() + ":\n";
@@ -243,6 +302,13 @@ public class Empresa {
 			return texto;
 		
 	}
+	
+	/**
+	 * clona el arraylist de viajes y los ordena segun el costo de cada uno
+	 * @param viajes2 distinto de null
+	 * @return un arraylist de viajes ordenados
+	 * @throws CloneNotSupportedException si no se pudo clonar
+	 */
 
 	
 	private ArrayList<Viaje> clonaYOrdenaViajes(ArrayList<Viaje> viajes2) throws CloneNotSupportedException { //REVISAR TRY Y CATCH
@@ -275,6 +341,20 @@ public class Empresa {
 		
 		return viajesClonados;
 	}
+
+	/**
+	 * Calcula el costo total de salarios de la empresa
+	 * @return costo de los servicios
+	 */
+	public double costosTotalesSalarios() {
+		double acum = 0;
+		if(choferes.size() != 0) {
+			for(int i = 0; choferes.size()>i ; i++) {
+				acum = choferes.get(i).getSueldo();
+			}
+		}
+		return acum;
+	}
 	
 
 	/**
@@ -285,7 +365,7 @@ public class Empresa {
 	 * 
 	 * @param chofer: chofer al cual se le va a calcular la cantidad de viajes en el mes actual
 	 */
-	public double CostoViajesMes(Contratado chofer){ //, int mes
+	public double costoViajesMes(Contratado chofer){ //, int mes
 		int j = viajes.size()-1;
 		int mesAux = viajes.get(j).getFecha().get(2); //Fecha del ultimo viaje realizado, para guardar el ultimo mes
 		double SumaCostosViajes = 0; 
@@ -299,8 +379,7 @@ public class Empresa {
 		  }
 	
 		  return SumaCostosViajes;
-	  }
-	  
+	}
 	
 	/**
 	 * Este metodo se usa para calcular cuantos viajes realizo un chofer en el mes actual
@@ -310,29 +389,113 @@ public class Empresa {
 	 * 
 	 * @param chofer: chofer al cual se le va a calcular la cantidad de viajes en el mes actual
 	 */
-		public int CantViajesMes(Temporario chofer){ //, int mes
-			int j = viajes.size()-1;
-			int mesAux = viajes.get(j).getFecha().get(2); //Fecha del ultimo viaje realizado, para guardar el mes actual
-			int CantViajesMes = 0; 
-			  
-			  //Desde la ultima parte de la lista hasta que cambie el mes
-			  while (j>=0 && ( mesAux == viajes.get(j).getFecha().get(2) ) )
-			  {
-				  if ( viajes.get(j).getChofer().getNombre().equals(chofer.getNombre()) )
-				     CantViajesMes++;
-			      j--;
-			  }
-		
-			  return CantViajesMes;
+	public int CantViajesMes(Temporario chofer){ //, int mes
+		int j = viajes.size()-1;
+		int mesAux = viajes.get(j).getFecha().get(2); //Fecha del ultimo viaje realizado, para guardar el mes actual
+		int CantViajesMes = 0; 
+		  
+		  //Desde la ultima parte de la lista hasta que cambie el mes
+		  while (j>=0 && ( mesAux == viajes.get(j).getFecha().get(2) ) )
+		  {
+			  if ( viajes.get(j).getChofer().getNombre().equals(chofer.getNombre()) )
+			     CantViajesMes++;
+		      j--;
 		  }
+	
+		  return CantViajesMes;
+	  }
+	
+	/**
+	 * Permite el cambio del nombre de chofer
+	 * @param documento distitno de "" y null
+	 * @param nombreNuevo distitno de "" y null
+	 */
+	
+	public void cambioNombreChofer(String documento,String nombreNuevo) {
+		for(int i = 0; choferes.size()>i ; i++) {
+			if(choferes.get(i).getDni().equals(documento)) {
+				choferes.get(i).setNombre(nombreNuevo);
+			}
+		}
+	}
+	
+	public String salariosCadaChofer() {
+		String texto = "Sueldos de cada chofer:\n";
 		
-		public static Empresa obtenerInstancia() {
-
-	        if (instancia == null) {
-	            instancia = new Empresa();
-	        }
-
-	        return instancia;
-	    }
+		for(int i = 0; i < choferes.size(); i++) {
+			texto = choferes.get(i).nombre + " gana: $" + choferes.get(i).getSueldo();
+		}
 		
+		return texto;
+	}
+	
+	/**
+	 * Cambia documento de chofer
+	 * pre:
+	 * @param documento distitno de "" y null
+	 * @param docNuevo distitno de "" y null
+	 * post: cambio de dni
+	 */
+	
+	public void cambioDocumentoChofer(String documento,String docNuevo) {
+		for(int i = 0; choferes.size()>i ; i++) {
+			if(choferes.get(i).getDni().equals(documento)) {
+				choferes.get(i).setNombre(docNuevo);
+			}
+		}
+	}
+	
+	/**
+	 * Cambia contrasena de un usuario
+	 * pre:
+	 * @param user distitno de "" y null
+	 * @param contraNueva distitno de "" y null
+	 * post: cambio de contrasena
+	 */
+	public void cambioContrasena(String user, String contraNueva) {
+		for(int i = 0; clientes.size()>i ; i++) {
+			if(clientes.get(i).getUser().equals(user)) {
+				clientes.get(i).setContrasena(contraNueva);
+			}
+		}
+	}
+	
+	/**
+	 * Cambia nombre de un usuario
+	 * pre:
+	 * @param user distitno de "" y null
+	 * @param nombreNuevo distitno de "" y null
+	 * post: cambia el nombre
+	 */
+	public void cambioNombre(String user, String nombreNuevo) {
+		for(int i = 0; clientes.size()>i ; i++) {
+			if(clientes.get(i).getUser().equals(user)) {
+				clientes.get(i).setNombre(nombreNuevo);
+			}
+		}
+	}
+	/**
+	 * Cambia el nombre de usuario de un cliente
+	 * pre:
+	 * @param user distitno de "" y null
+	 * @param userNuevo distitno de "" y null
+	 * post cambia el usuario
+	 */
+	public void cambioUser(String user, String userNuevo) {
+		for(int i = 0; clientes.size()>i ; i++) {
+			if(clientes.get(i).getUser().equals(user)) {
+				clientes.get(i).setNombre(userNuevo);
+			}
+		}
+	}
+	
+	public static Empresa obtenerInstancia() {
+
+        if (instancia == null) {
+            instancia = new Empresa();
+        }
+
+        return instancia;
+    }
+	
 }
