@@ -1,37 +1,32 @@
 package negocio;
 
+import java.util.GregorianCalendar;
+
+/**
+ * Clase abstract Viaje, de la que extenderan las Zonas y seran decoradas. 
+ */
 public abstract class Viaje implements IViaje, Cloneable, Comparable {
-	private String estado, zona;
-	private Cliente cliente;
+	private String estado;
 	private Vehiculo vehiculo;
+	private Pedido pedido;
 	private Chofer chofer;
 	private double costo, distancia;
-	private int cantPasajeros;
-	private boolean mascota, baul;
 	private static float costoBase= 1000;
 	private Empresa empresa = Empresa.obtenerInstancia(); //pq va a ser singleton
 	
-	public int compareTo(Object obj) {
-		int rta = -1;
-		Viaje viaje = (Viaje) obj;
-	
-		if (this.getCosto() <= viaje.getCosto())
-			rta = 1;
-		else
-			rta = 0;
-		
-		return rta;
-	}
-	
+	/**
+	 * Constructor de Viaje, recibe un pedido y lo procesa
+	 * 
+	 * Pre: pedido!=null
+	 * Post: Se crea e inicia un nuevo viaje o propaga excepcion
+	 * 
+	 * @param pedido: es el formulado del pedido en el que se basa la solicitacion del viaje 
+	 */
 	public Viaje(Pedido pedido)throws FaltaDeChoferException, FaltaDeVehiculoException {
 		
-		this.cliente= pedido.getCliente();
+		this.pedido= pedido;
 		this.costo= costoBase; 
 		//this.distancia= cliente.getDistanciaViaje(); //el cliente tiene un ATRIBUTO q es la distancia
-		this.cantPasajeros= pedido.getCantPasajeros();
-		this.zona= pedido.getZona();
-		this.mascota= pedido.isMascota();
-		this.baul= pedido.isBaul();
 		this.estado="Solicidato";
 		
 		this.vehiculo= empresa.seleccionaMejorVehiculo(pedido); //throws FaltaDeVehiculoException
@@ -39,6 +34,26 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 		
 		this.chofer= empresa.seleccionaChofer(pedido); //throws FaltaDeChoferException
 		this.estado="Iniciado";
+	}
+	
+	/**
+	 * Compara los costos del objeto actual de viaje con el que se manda como parametro 
+	 * 
+	 * Pre: obj =! null && obj tipo Viaje
+	 * Post: Se crea e inicia un nuevo viaje o propaga excepcion
+	 * 
+	 * @param pedido: es el formulario del pedido en el que se basa la solicitacion del viaje 
+	 */
+	public int compareTo(Object obj) {
+		int rta = -1;
+		Viaje viaje = (Viaje) obj;
+		
+		if (this.getCosto() <= viaje.getCosto())
+			rta = 1;
+		else
+			rta = 0;
+		
+		return rta;
 	}
 
 	public static void setCostoBase(float costoBase) {
@@ -50,11 +65,11 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 	}
 
 	public String getZona() {
-		return zona;
+		return pedido.getZona();
 	}
 
 	public Cliente getCliente() {
-		return cliente;
+		return pedido.getCliente();
 	}
 
 	public Vehiculo getVehiculo() {
@@ -66,11 +81,11 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 	}
 
 	public boolean isMascota() {
-		return mascota;
+		return pedido.isMascota();
 	}
 
 	public boolean isBaul() {
-		return baul;
+		return pedido.isBaul();
 	}
 	
 	@Override
@@ -80,7 +95,7 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 
 	@Override
 	public int getCantPasajeros() {
-		return cantPasajeros;
+		return pedido.getCantPasajeros();
 	}
 
 	@Override
@@ -88,11 +103,26 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 		return distancia;
 	}
 
+	/**
+	 * Calculo del costo final del viaje, que dependera de sus respectivos incrementos
+	 * 
+	 * Post: Devuelve el costo final teniendo en cuenta getIncKilometros() y getIncPasajeros() 
+	 */
 	@Override
 	public double getCosto() { 
 		return costo + getIncKilometros() + getIncPasajeros();
 	}
 	
+	@Override
+	public GregorianCalendar getFecha() {
+		return pedido.getFecha();
+	}
+	
+	
+	/** Continua el recorrido del pedido, luego haber sido iniciado
+	 * pre: el objeto viaje que lo efectua tiene estado iniciado
+	 * post: actualiza el estado del viaje
+	 */
 	public void Pagado() {
 		estado="Pagado";
 		//en un futuro aca se podria poner que tanto el Chofer como su Vehiculo vuelven al ArrayList, y estan listos para otro pedido

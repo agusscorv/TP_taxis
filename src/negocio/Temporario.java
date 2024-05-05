@@ -7,8 +7,10 @@ public class Temporario extends Empleado
 
 	/**
 	 * Constructor del chofer temporario
+	 * 
 	 * Pre: dni!=null, dni!="", nombre!=null, nombre!="", sueldo_basico > 0, cantViajes >=0
 	 * Post: Se ha creado un chofer temporario nuevo con los atributos dados.
+	 * 
 	 * @param dni = documento identificatorio del chofer temporario
 	 * @param nombre = nombre del chofer temporario
 	 * @param sueldo_basico = sueldo del chofer temporario

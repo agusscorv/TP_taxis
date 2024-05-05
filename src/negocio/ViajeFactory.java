@@ -2,6 +2,15 @@ package negocio;
 
 public class ViajeFactory {
 
+	
+	/**Este método es el encargado de fabricar un objeto de tipo Viaje con todas sus especificaciones de Zona, Mascota y Baul. A traves de Decorators (o propaga excepcion)
+	 * pre: pedido != null
+	 * post: devuelve un objeto de tipo IViaje con sus correspondientes decorators
+	 * 
+	 * @param pedido = formulario del pedido en base al cual se creara el viaje
+	 * 
+	 * @throws ZonaInexistenteException = se lanza en caso de que la zona del pedido no sea una zona existente en el sistema
+	 */
 	public IViaje getViaje(Pedido pedido)
 		throws FaltaDeChoferException, FaltaDeVehiculoException, ZonaInexistenteException{
 		

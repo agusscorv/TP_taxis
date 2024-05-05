@@ -12,7 +12,6 @@ public class Contratado extends Chofer
 	 * Post: Se crea un nuevo chofer contratado con los atributos dados
 	 * @param dni: documento identificatorio del chofer contratado
 	 * @param nombre: nombre del chofer contratado
-	 * @param cant_viajes: Cantidad de viajes que realizo el chofer contratado
 	 */
 	public Contratado(String dni, String nombre)
 	{

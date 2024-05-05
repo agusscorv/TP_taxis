@@ -33,8 +33,50 @@ public class Empresa {
 		}
 	}
 
-	public void agregarChofer(String dni, String nombre) {
-		Chofer chofer = new Chofer(dni, nombre);
+	/**
+	 * Metodo que crea y agrega un chofer de Tipo contratado al array de la empresa
+	 * 
+	 * Pre: dni!=null,dni!="",nombre!=null,nombre!="", cantViajes >=0
+	 * Post: Crea un nuevo chofer Contratado y lo agrega al Array de empresa
+	 * 
+	 * @param dni: documento identificatorio del chofer contratado
+	 * @param nombre: nombre del chofer contratado
+	 */
+	public void agregarContratado(String dni, String nombre) {
+		Chofer chofer = new Contratado(dni, nombre);
+		choferes.add(chofer);
+	}
+	
+	/**
+	 * Metodo que crea y agrega un chofer de Tipo Temporario al array de la empresa
+	 * 
+	 * Pre: dni!=null, dni!="", nombre!=null, nombre!="", sueldo_basico > 0, cantViajes >=0
+	 * Post: Crea un nuevo chofer Temporario y lo agrega al Array de empresa
+	 * 
+	 * @param dni = documento identificatorio del chofer temporario
+	 * @param nombre = nombre del chofer temporario
+	 * @param sueldo_basico = sueldo del chofer temporario
+	 * @param cantViajes = cantidad de viajes que realizo el chofer temporario
+	 */
+	public void agregarTemporario(String dni, String nombre, double sueldo_basico, int cantViajes) {
+		Chofer chofer = new Temporario(dni, nombre, sueldo_basico, cantViajes);
+		choferes.add(chofer);
+	}
+	
+	/**
+	 * Metodo que crea y agrega un chofer de Tipo Permanente al array de la empresa
+	 * 
+	 * Pre: dni!=null, dni!="", nombre!=null, nombre!="", sueldo_basico > 0, cantHijos >= 0, fecha_ingreso valida en el GregorianCalendar
+	 * Post: Crea un nuevo chofer Permanente y lo agrega al Array de empresa
+	 * 
+	 * @param dni: documento identificatorio del chofer permanente
+	 * @param nombre: nombre del chofer permanente
+	 * @param sueldo_basico: sueldo del chofer permanente
+	 * @param cantHijos: cantidad de hijos del chofer permanente
+	 * @param fecha_ingreso: fecha de ingreso a la empresa del chofer permanente
+	 */
+	public void agregarPermanente(String dni, String nombre, double sueldo_basico, int cantHijos, GregorianCalendar fecha_ingreso) {
+		Chofer chofer = new Permanente(dni, nombre, sueldo_basico, cantHijos, fecha_ingreso);
 		choferes.add(chofer);
 	}
 	
@@ -76,31 +118,23 @@ public class Empresa {
 	
 	
 	/**
-	 * Este es el viaje solicitado por un Cliente existente en la lista de clientes 
-	 *  
-	 * Pre:
-	 * @param fechaYHora debe ser diferente a null
-	 * @param zona diferente a null y a ""
-	 * @param mascotas 
-	 * @param baul 
-	 * @param cantPasajeros deber ser mayor a 0
-	 * @param cliente debe ser existente en la lista de clientes y diferente a null. Es quien emite el pedido
+	 * Procesa el viaje solicitado por un Cliente existente en la lista de clientes (o propaga la excepcion) 
 	 * 
-	 * Post:
-	 *  propaga una excepcion o solicita un viaje
+	 * Pre: fecha= GregorianCalendar valida; zona != null && !=""; cantPasjeros>0, cliente!=null
+	 * Post: propaga una excepcion o solicita un viaje
 	 *  
-	 * @param mascotas si lleva o no mascota
-	 * @param baul si usa o no baul
+	 * @param fecha: fecha y hora del pedido
+	 * @param zona: String con el nombre de la zona
+	 * @param mascotas: Boolean que confirma si el cliente lleva mascota
+	 * @param baul: Boolean que confirma si el cliente necesitara un baul
+	 * @param cantPasajeros: cantidad de pasajeros que viajaran
+	 * @param cliente: cliente que hizo el pedido
 	 * 
-	 * @throws FaltaDeChoferException asfafasf
-	 * @throws FaltaDeVehiculoException asdasf
-	 * @throws ZonaInexistenteException asdasd
 	 */
 	
-	//ACA TENGO QUE CAMBIAR LO DE FECHA Y HORA POR UNA VARIABLE GREGORIAN fechaYHora 
-	public void solicitaViaje(GregorianCalendar fechaYHora, String zona, boolean mascotas, boolean baul, int cantPasajeros, Cliente cliente) 
+	public void solicitaViaje(GregorianCalendar fecha, String zona, boolean mascotas, boolean baul, int cantPasajeros, Cliente cliente) 
 			throws FaltaDeChoferException, FaltaDeVehiculoException, ZonaInexistenteException{
-		Pedido pedido= new Pedido(fechaYHora, zona, mascotas, baul, cantPasajeros, cliente);
+		Pedido pedido= new Pedido(fecha, zona, mascotas, baul, cantPasajeros, cliente);
 		Viaje viaje= (Viaje) fabricaViajes.getViaje(pedido);
 		viaje.Pagado();
 	}
@@ -241,14 +275,6 @@ public class Empresa {
 		
 		return viajesClonados;
 	}
-
-		
-		// Primero clona elemento a elemento y despues con un compare to y dos for los va ordenando 
-		
-		return viajesClonados;
-	}
-
-	public get
 	
 
 	//El chofer tiene que estar si o si en la lista, y el enviado como parametro es contratado
