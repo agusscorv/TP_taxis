@@ -1,5 +1,8 @@
 package negocio;
 
+/**
+ * Clase abstracta : Chofer es aquel que rinde el servicio necesario para realizar un viaje con determinado trayecto.
+ */
 public abstract class Chofer
 {
 	private String dni;
@@ -18,37 +21,25 @@ public abstract class Chofer
 		this.nombre = nombre;
 	}
 	
-	/**
-	 * Obtiene el dni del chofer 
-	 * Post: Devuelve el dni del chofer 
-	 */
+
 	public String getDni()
 	{
 		return dni;
 	}
 	
-	/**
-	 * Asigna el dni al chofer 
-	 * Post: Establece el dni del chofer 
-	 */
+
 	public void setDni(String dni)
 	{
 		this.dni = dni;
 	}
 	
-	/**
-	 * Obtiene el nombre del chofer 
-	 * Post: Devuelve el nombre del chofer
-	 */
+
 	public String getNombre()
 	{
 		return nombre;
 	}
 	
-	/**
-	 * Asigna el nombre del chofer
-	 * Post: Establece el nombre del chofer
-	 */
+
 	public void setNombre(String nombre)
 	{
 		this.nombre = nombre;

@@ -1,6 +1,8 @@
 package negocio;
 
-
+/**
+ * Clase correspondiente al patron factory que se encarga de la creacion de un tipo de vehiculo necesario para brindar el servicio de viaje.
+ */
 public class VehiculoFactory {
 
 	/**Este método es el encargado de fabricar un objeto de tipo Vehiculo que es moto, combi o auto.

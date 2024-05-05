@@ -1,5 +1,8 @@
 package negocio;
 
+/**
+ * Clase concreta : Moto es un tipo de vehiculo que puede utilizar un chofer determinado para realizar un viaje.
+ */
 public class Moto extends Vehiculo {
     
 	/**

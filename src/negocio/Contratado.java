@@ -1,10 +1,14 @@
 package negocio;
 
+/**
+ * Clase concreta : Contratado es un tipo de chofer que se encarga de realizar los viajes con comportamientos determinados
+ * Su sueldo se basa en un porcentaje de la ganancia obtenida en sus viajes en un mes.
+ */
+
 public class Contratado extends Chofer
 {
 	public static double ganancia_viaje = 15;
-	Empresa empresa= Empresa.obtenerInstancia();
-	//private int cant_viajes;
+	Empresa empresa = Empresa.obtenerInstancia();
 
 	/**
 	 * Constructor del chofer contratado

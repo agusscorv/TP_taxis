@@ -1,5 +1,8 @@
 package negocio;
 
+/**
+ * Clase abstracta : se encarga de asignar un vehiculo determinado dependiendo del criterio del pedido y la disponibilidad de choferes y vehiculos.
+ */
 public abstract class Vehiculo {
 	private int maxPasajeros;
 	private String patente;

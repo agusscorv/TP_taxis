@@ -1,5 +1,8 @@
 package negocio;
 
+/**
+ * Clase abstracta : Empleado es un tipo de chofer que tiene un vinculo contractual con la empresa con comportamientos determinados.
+ */
 public abstract class Empleado extends Chofer
 {
 

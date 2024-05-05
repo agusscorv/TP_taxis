@@ -2,6 +2,10 @@ package negocio;
 
 import java.util.GregorianCalendar;
 
+/**
+ * Clase concreta : Permanente es un tipo de chofer que es empleado que se encarga de realizar los viajes con comportamientos determinados.
+ * Su sueldo se basa en su antiguedad y su cantidad de hijos.
+ */
 public class Permanente extends Empleado
 {
 	private int cantHijos;

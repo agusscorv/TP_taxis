@@ -1,5 +1,8 @@
 package negocio;
 
+/**
+ * Clase concreta : Combi es un tipo de vehiculo que puede utilizar un chofer determinado para realizar un viaje.
+ */
 public class Combi extends Vehiculo {
 
 	/**

@@ -118,8 +118,8 @@ public class Empresa {
 	
 	
 	/**
-	 * Procesa el viaje solicitado por un Cliente existente en la lista de clientes (o propaga la excepcion) 
-	 * 
+	 * Procesa el viaje solicitado por un Cliente existente en la lista de clientes (o propaga la excepcion)
+	 *  
 	 * Pre: fecha= GregorianCalendar valida; zona != null && !=""; cantPasjeros>0, cliente!=null
 	 * Post: propaga una excepcion o solicita un viaje
 	 *  
@@ -129,7 +129,6 @@ public class Empresa {
 	 * @param baul: Boolean que confirma si el cliente necesitara un baul
 	 * @param cantPasajeros: cantidad de pasajeros que viajaran
 	 * @param cliente: cliente que hizo el pedido
-	 * 
 	 */
 	
 	public void solicitaViaje(GregorianCalendar fecha, String zona, boolean mascotas, boolean baul, int cantPasajeros, Cliente cliente) 
@@ -277,7 +276,14 @@ public class Empresa {
 	}
 	
 
-	//El chofer tiene que estar si o si en la lista, y el enviado como parametro es contratado
+	/**
+	 * Este metodo se usa para calcular cuanto generaron los viajes que realizo un chofer en el mes actual
+	 * 
+	 * Pre: chofer!= null, chofer Contratado contenido en el Array
+	 * Post: devuelve la cantidad de dinero generados por los viajes que realizo el chofer Contratado que se recibe por parametro, en el mes actual
+	 * 
+	 * @param chofer: chofer al cual se le va a calcular la cantidad de viajes en el mes actual
+	 */
 	public double CostoViajesMes(Contratado chofer){ //, int mes
 		int j = viajes.size()-1;
 		int mesAux = viajes.get(j).getFecha().get(2); //Fecha del ultimo viaje realizado, para guardar el ultimo mes
@@ -294,4 +300,28 @@ public class Empresa {
 		  return SumaCostosViajes;
 	  }
 	  
+	
+	/**
+	 * Este metodo se usa para calcular cuantos viajes realizo un chofer en el mes actual
+	 * 
+	 * Pre: chofer!= null, chofer Temporario contenido en el Array
+	 * Post: devuelve la cantidad de viajes que realizo el chofer Temporario que se recibe por parametro, en el mes actual
+	 * 
+	 * @param chofer: chofer al cual se le va a calcular la cantidad de viajes en el mes actual
+	 */
+		public int CantViajesMes(Temporario chofer){ //, int mes
+			int j = viajes.size()-1;
+			int mesAux = viajes.get(j).getFecha().get(2); //Fecha del ultimo viaje realizado, para guardar el mes actual
+			int CantViajesMes = 0; 
+			  
+			  //Desde la ultima parte de la lista hasta que cambie el mes
+			  while (j>=0 && ( mesAux == viajes.get(j).getFecha().get(2) ) )
+			  {
+				  if ( viajes.get(j).getChofer().getNombre().equals(chofer.getNombre()) )
+				     CantViajesMes++;
+			      j--;
+			  }
+		
+			  return CantViajesMes;
+		  }
 }
