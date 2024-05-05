@@ -3,6 +3,13 @@ package negocio;
 
 public class VehiculoFactory {
 
+	/**Este método es el encargado de fabricar un objeto de tipo Vehiculo que es moto, combi o auto.
+	 * pre: tipo!=null, tipo!="",patente!=null,patente!=""
+	 * post: devuelve un objeto de tipo moto,auto o combi.
+	 * @param tipo = tipo de vehiculo que se quiere crear
+	 * @param patente = patente que hace de identificador de vehiculo
+	 * @throws TipoVehiculoInexistenteException si el tipo de vehiculo no es ni moto, ni combi, ni auto, se dispara una excepcion indicando que el tipo de vehiculo ingresado es incorrecto
+	 */
 	public Vehiculo getVehiculo(String tipo, String patente) throws TipoVehiculoInexistenteException {
 		Vehiculo respuesta = null;
 		if (tipo.equalsIgnoreCase("Moto")) 

@@ -3,17 +3,29 @@ package negocio;
 public class Contratado extends Chofer
 {
 	public static double ganancia_viaje = 15;
+	Empresa empresa= Empresa.obtenerInstancia();
 	//private int cant_viajes;
 
-	public Contratado(String dni, String nombre, int cant_viajes)
+	/**
+	 * Constructor del chofer contratado
+	 * Pre: dni!=null,dni!="",nombre!=null,nombre!="", cantViajes >=0
+	 * Post: Se crea un nuevo chofer contratado con los atributos dados
+	 * @param dni: documento identificatorio del chofer contratado
+	 * @param nombre: nombre del chofer contratado
+	 * @param cant_viajes: Cantidad de viajes que realizo el chofer contratado
+	 */
+	public Contratado(String dni, String nombre)
 	{
 		super(dni, nombre);
-		this.cant_viajes = cant_viajes;
 	}
 	
+	/**
+	 * Obtiene el sueldo neto del chofer contratado
+	 * Post: Devuelve un double correspondiente al sueldo neto del chofer contratado
+	 */
 	@Override
-	public double getSueldo() //La fecha iria aca?
+	public double getSueldo()
 	{
-		return CostosViajesMes(super.nombre) * (ganancia_viaje / 100);
-	} //super.nombre o getNombre?, ahi nombre no seria protected en chofer
+		return empresa.CostoViajesMes(this) * (ganancia_viaje / 100);
+	}
 }

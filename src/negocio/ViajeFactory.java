@@ -2,7 +2,7 @@ package negocio;
 
 public class ViajeFactory {
 
-	public IViaje getViaje(Pedido pedido, Chofer chofer, Vehiculo vehiculo)
+	public IViaje getViaje(Pedido pedido)
 		throws FaltaDeChoferException, FaltaDeVehiculoException, ZonaInexistenteException{
 		
 		IViaje rta=null; 

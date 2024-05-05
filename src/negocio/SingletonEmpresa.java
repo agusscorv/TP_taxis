@@ -5,7 +5,7 @@ public class SingletonEmpresa {
 	private static Empresa instancia = null;
 	
 	private SingletonEmpresa() {
-		//que iria aca adentro en este caso??
+		//que
 	}
 		
 	public static Empresa obtenerInstancia() {

@@ -9,6 +9,7 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 	private int cantPasajeros;
 	private boolean mascota, baul;
 	private static float costoBase= 1000;
+	private Empresa empresa = Empresa.obtenerInstancia(); //pq va a ser singleton
 	
 	public int compareTo(Object obj) {
 		int rta = -1;
@@ -25,21 +26,19 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 	public Viaje(Pedido pedido)throws FaltaDeChoferException, FaltaDeVehiculoException {
 		
 		this.cliente= pedido.getCliente();
-		this.costo= costoBase; ///EL COSTO BASE SE PODRA MODIFICAR DICE, COMO?
+		this.costo= costoBase; 
 		//this.distancia= cliente.getDistanciaViaje(); //el cliente tiene un ATRIBUTO q es la distancia
 		this.cantPasajeros= pedido.getCantPasajeros();
 		this.zona= pedido.getZona();
 		this.mascota= pedido.isMascota();
 		this.baul= pedido.isBaul();
+		this.estado="Solicidato";
 		
+		this.vehiculo= empresa.seleccionaMejorVehiculo(pedido); //throws FaltaDeVehiculoException
+		this.estado="Con Vehiculo";
 		
-		this.vehiculo= Empresa.seleccionaMejorVehiculo(pedido); //throws FaltaDeVehiculoException
-		
-		
-		this.chofer= Empresa.seleccionaChofer(pedido); //throws FaltaDeChoferException
-		
-		if (this.vehiculo!= null && this.chofer!=null)
-			this.estado="Solicitado";
+		this.chofer= empresa.seleccionaChofer(pedido); //throws FaltaDeChoferException
+		this.estado="Iniciado";
 	}
 
 	public static void setCostoBase(float costoBase) {
@@ -93,12 +92,16 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 	public double getCosto() { 
 		return costo + getIncKilometros() + getIncPasajeros();
 	}
-
+	
+	public void Pagado() {
+		estado="Pagado";
+		//en un futuro aca se podria poner que tanto el Chofer como su Vehiculo vuelven al ArrayList, y estan listos para otro pedido
+		estado="Finalizado";
+	}
+	
 	protected Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
-	
-	
 		
 }	
 
