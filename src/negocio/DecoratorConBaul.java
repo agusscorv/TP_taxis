@@ -28,5 +28,16 @@ public class DecoratorConBaul extends DecoratorBaul {
 	public double getIncKilometros() {
 		return getCostoBase()*0.05*getDistancia();
 	}
+	
+	public void setEncapsulado(IViaje aEncapsular) {
+		this.encapsulado= aEncapsular;
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		DecoratorConBaul aux= (DecoratorConBaul) super.clone();
+		aux.setEncapsulado( (IViaje) this.encapsulado.clone() ); 
+		return aux;
+	}
 
 }

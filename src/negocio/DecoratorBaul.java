@@ -5,7 +5,7 @@ import java.util.GregorianCalendar;
 /**
  * Clase Decorator de Baul que implementa IViaje y decorara un hijo de Viaje 
  */
-public abstract class DecoratorBaul implements IViaje {
+public abstract class DecoratorBaul implements IViaje, Cloneable {
 	IViaje encapsulado;
 
 	/**
@@ -39,10 +39,6 @@ public abstract class DecoratorBaul implements IViaje {
 	public void Pagado() {
 		encapsulado.Pagado();
 	}
-	
-	public Object clone() throws CloneNotSupportedException {
-		return encapsulado.clone();
-	}
 
 	@Override
 	public int getCantPasajeros() {
@@ -62,6 +58,10 @@ public abstract class DecoratorBaul implements IViaje {
 	@Override
 	public double getCostoBase() {
 		return encapsulado.getCostoBase();
+	}
+	
+	public Object clone() throws CloneNotSupportedException{
+		return super.clone();
 	}
 
 	/**

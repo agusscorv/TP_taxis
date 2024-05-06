@@ -28,7 +28,16 @@ public class DecoratorSinMascota extends DecoratorMascota {
 	public double getIncKilometros() {
 		return 0;
 	}
-
 	
+	public void setEncapsulado(IViaje aEncapsular) {
+		this.encapsulado= aEncapsular;
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		DecoratorSinMascota aux= (DecoratorSinMascota) super.clone();
+		aux.setEncapsulado( (IViaje) this.encapsulado.clone() ); 
+		return aux;
+	}
 
 }

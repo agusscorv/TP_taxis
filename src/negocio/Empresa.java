@@ -50,9 +50,10 @@ public class Empresa {
 	 * @param dni: documento identificatorio del chofer contratado
 	 * @param nombre: nombre del chofer contratado
 	 */
-	public void agregarContratado(String dni, String nombre) {
-		Chofer chofer = new Contratado(dni, nombre);
+	public Contratado agregarContratado(String dni, String nombre) {
+		Contratado chofer = new Contratado(dni, nombre);
 		choferes.add(chofer);
+		return chofer;
 	}
 	
 	/**
@@ -65,9 +66,10 @@ public class Empresa {
 	 * @param nombre = nombre del chofer temporario
 	 * @param sueldo_basico = sueldo del chofer temporario
 	 */
-	public void agregarTemporario(String dni, String nombre, double sueldo_basico) {
-		Chofer chofer = new Temporario(dni, nombre, sueldo_basico);
+	public Temporario agregarTemporario(String dni, String nombre, double sueldo_basico) {
+		Temporario chofer = new Temporario(dni, nombre, sueldo_basico);
 		choferes.add(chofer);
+		return chofer;
 	}
 	
 	/**
@@ -83,9 +85,10 @@ public class Empresa {
 	 * @param fecha_ingreso: fecha de ingreso a la empresa del chofer permanente
 	 * 
 	 */
-	public void agregarPermanente(String dni, String nombre, double sueldo_basico, int cantHijos, GregorianCalendar fecha_ingreso) {
-		Chofer chofer = new Permanente(dni, nombre, sueldo_basico, cantHijos, fecha_ingreso);
+	public Permanente agregarPermanente(String dni, String nombre, double sueldo_basico, int cantHijos, GregorianCalendar fecha_ingreso) {
+		Permanente chofer = new Permanente(dni, nombre, sueldo_basico, cantHijos, fecha_ingreso);
 		choferes.add(chofer);
+		return chofer;
 	}
 	
 	/**
@@ -236,7 +239,7 @@ public class Empresa {
 		}
 		else {
 			for(int i = 0; choferes.size()>i ; i++) {
-				texto = texto + choferes.get(i).getNombre() + ", Puntaje del mes solicitado: "+ choferes.get(i).getPuntaje() + "\n";
+				texto = texto + choferes.get(i).getNombre() +", Tiene un sueldo de: $"+ choferes.get(i).getSueldo() + ", Puntaje del mes solicitado: "+ choferes.get(i).getPuntaje() + "\n";
 			}
 		}
 		return texto;
@@ -323,7 +326,6 @@ public class Empresa {
 		for ( i = 0; i < viajes2.size(); i++) {
 			try {
 				viajesClonados.add((IViaje) viajes2.get(i).clone());
-				System.out.println( viajes2.get(i).getCosto() + " deberia ser igual  " + viajesClonados.get(i).getCosto());
 			}
 			catch (CloneNotSupportedException e){
 				
@@ -333,7 +335,7 @@ public class Empresa {
 			viajeSacar = viajesClonados.get(0);
 			indiceSacar = 0;
 			for (j = viajesClonados.size()-i; j >= 0 ; j--) {
-				if (viajeSacar.compareTo(viajesClonados.get(j)) == 1 ){
+				if ( viajeSacar.getCosto() < viajesClonados.get(j).getCosto() ){
 					viajeSacar = viajesClonados.get(j);
 					indiceSacar = j;
 				}
@@ -414,7 +416,7 @@ public class Empresa {
 	 * post: actualiza el puntaje del mes especifico dado de cada chofer
 	 * @param mes donde se calcula el puntaje
 	 */
-	public void puntajeChoferes(int mes)
+	public String puntajeChoferes(int mes)
 	{
 		int i,j;
 		Chofer choferMax=null;
@@ -422,7 +424,7 @@ public class Empresa {
 		for (i = 0; i < choferes.size();i++){
 			j=0;
 			choferes.get(i).setPuntaje(0);
-		    while (j<viajes.size()   &&   mes <= viajes.get(j).getFecha().get(2)) {
+		    while (j<viajes.size()   &&   mes >= viajes.get(j).getFecha().get(2)) {
 			   if ( ( mes == viajes.get(j).getFecha().get(2) )) { //Si el mes es el buscado
 				   if ( viajes.get(j).getChofer() == choferes.get(i) ){ //El chofer tuvo un viaje en ese mes
 				      choferes.get(i).addPuntaje(5);
@@ -438,8 +440,9 @@ public class Empresa {
 		}
 		if (choferMax!=null) {
 			choferMax.addPuntaje(15);
-			muestraChoferes();
-		}
+			return muestraChoferes();
+		}else
+			return "No hay choferes que hayan hecho entregas ese mes";
 	}
 	
 	/**
@@ -452,19 +455,14 @@ public class Empresa {
 	 * @return un String con el listado para poder imprimir por pantalla
 	 */
 	public String viajesChoferPeriodo(Chofer chofer, GregorianCalendar fechaInicio, GregorianCalendar fechaFinal) {
-		String texto = "Viajes de " + chofer.getNombre() + " desde: " + fechaInicio.toString() + " hasta: " + fechaFinal.toString() + "\n";
-		int j = 0;
+		String texto = "Viajes de " + chofer.getNombre() + ", desde: " + fechaInicio.getTime() + ", hasta: " + fechaFinal.getTime() + "\n";
 		
-		while (j <= viajes.size()-1 && viajes.get(j).getFecha().compareTo(fechaInicio) < 0) {
-			j++;
-		}
-		
-		while (j <= viajes.size()-1 && viajes.get(j).getFecha().compareTo(fechaFinal) >= 0) {
-			if(viajes.get(j).getChofer().getDni().equals(chofer.getDni())) {
-				texto = texto + "Llevo a " + viajes.get(j).getCliente().getNombre() + " durante " + viajes.get(j).getDistancia() + "km\n";
-			}
-			j++;			
-		}
+		for (int i = 0; i < viajes.size(); i++) {
+            if (viajes.get(i).getFecha().compareTo(fechaInicio) >= 0 && viajes.get(i).getFecha().compareTo(fechaFinal) <= 0 &&
+                    viajes.get(i).getChofer().getDni().equals(chofer.getDni())) {
+                texto += "Llevó a " + viajes.get(i).getCliente().getNombre() + " durante " + viajes.get(i).getDistancia() + " km\n";
+            }
+        }
 		return texto;
 	}
 	
@@ -477,18 +475,15 @@ public class Empresa {
 	 * @return un String con el listado para poder imprimir por pantalla
 	 */
 	public String viajesClientePeriodo(Cliente cliente, GregorianCalendar fechaInicio, GregorianCalendar fechaFinal) {
-		String texto = "Viajes de " + cliente.getUser() + " desde: " + fechaInicio.toString() + " hasta: " + fechaFinal.toString() + "\n";
-		int j = 0;
+		String texto = "Viajes de " + cliente.getUser() + ", desde: " + fechaInicio.getTime() + ", hasta: " + fechaFinal.getTime() + "\n";
 
-		while (j <= viajes.size()-1 && viajes.get(j).getFecha().compareTo(fechaInicio) < 0) {
-			j++;			
-		}
-		
-		while (j <= viajes.size()-1 && viajes.get(j).getFecha().compareTo(fechaFinal) >= 0) {
-			if(viajes.get(j).getCliente().getUser().equals(cliente.getUser())) {
-				texto = texto + "Viajó durante " + viajes.get(j).getDistancia() + "km\n";
-			}
-		}
+		for (int i = 0; i < viajes.size(); i++) {
+
+            if (viajes.get(i).getFecha().compareTo(fechaInicio) >= 0 && viajes.get(i).getFecha().compareTo(fechaFinal) <= 0 &&
+                    viajes.get(i).getCliente().getUser().equals(cliente.getUser())) {
+                texto += "Viajó durante " + viajes.get(i).getDistancia() + " km\n";
+            }
+        }
 		return texto;
 	}
 	

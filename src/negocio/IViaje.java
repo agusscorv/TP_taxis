@@ -34,8 +34,6 @@ public interface IViaje {
 	 */
 	public double getCosto();
 	
-	//public double getCostoFinal();
-	
 	public Cliente getCliente();
 	
 	public Vehiculo getVehiculo();

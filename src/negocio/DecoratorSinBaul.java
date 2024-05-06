@@ -29,6 +29,15 @@ public class DecoratorSinBaul extends DecoratorBaul {
 		return 0;
 	}
 	
-	
+	public void setEncapsulado(IViaje aEncapsular) {
+		this.encapsulado= aEncapsular;
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		DecoratorSinBaul aux= (DecoratorSinBaul) super.clone();
+		aux.setEncapsulado( (IViaje) this.encapsulado.clone() ); 
+		return aux;
+	}
 
 }

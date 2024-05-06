@@ -10,7 +10,7 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 	private Vehiculo vehiculo;
 	private Pedido pedido;
 	private Chofer chofer;
-	private double costo, costoFinal;
+	private double costo;
 	private static float costoBase= 1000;
 	private Empresa empresa = Empresa.obtenerInstancia(); //pq va a ser singleton
 	
@@ -126,13 +126,8 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 		//en un futuro aca se podria poner que tanto el Chofer como su Vehiculo vuelven al ArrayList, y estan listos para otro pedido
 		estado="Finalizado";
 	}
-	
-	public double getCostoFinal() {
-		return costoFinal;
-	}
 
 	public Object clone() throws CloneNotSupportedException {
-		//costoFinal= getCosto();
         return super.clone();
     }
 		
