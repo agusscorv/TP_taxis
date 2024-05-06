@@ -24,9 +24,9 @@ public class Empresa {
 	
 	/**
 	 * Ingresa el vehiculo al sistema y luego lo agrega al ArrayList.
-	 * pre:
-	 * @param tipo distinto de null y de ""
-	 * @param patente distinto de null y de ""
+	 * pre: tipo!= null &&  tipo!="", patente!= null &&  patente!=""
+	 * @param tipo: tipo de vehiculo a ser creado
+	 * @param patente: del vehiculo a ser creado
 	 * 
 	 * post: catchea una excepcion o crea el vehiculo
 	 */
@@ -93,12 +93,14 @@ public class Empresa {
 	
 	/**
 	 * Agrega el cliente siempre que el mismo no exista, puede lanzar Excepcion
-	 * pre:
-	 * @param user distinto de null y ""
-	 * @param contrasena distinto de null y ""
-	 * @param nombre distinto de null y ""
-	 * post
-	 * agrega el cliente o lanza una excepcion
+	 * pre: user!= null &&  user!="", contrasena!= null &&  contrasena!="", nombre!= null &&  nombre!=""
+	 * 
+	 * @param user: username del cliente
+	 * @param contrasena: contrasena del usuario
+	 * @param nombre: nombre del cliente
+	 * 
+	 * post:agrega el cliente o lanza una excepcion
+	 * 
 	 * @throws ClienteExistente en el caso que el usuarioya se encuentre en el ArrayList
 	 */
 	public Cliente agregarCliente(String user, String contrasena, String nombre)throws ClienteExistenteException {
@@ -122,9 +124,11 @@ public class Empresa {
 
 	/**
 	 * Metodo para buscar un cliente en el ArrayList a través del usuario
-	 * pre:
-	 * @param clientes distinto de null
-	 * @param userBuscado distinto de null y ""
+	 * pre: clientes!= null, userBuscado!= null &&  userBuscado!=""
+	 * 
+	 * @param clientes: lista en la cual se va a buscar a un determinado usuario
+	 * @param userBuscado: user a ser buscado en la lista
+	 * 
 	 * post:
 	 * @return devuelve la posicion en el arraylist o -1 si no lo encontro
 	 */
@@ -166,9 +170,11 @@ public class Empresa {
 
 	/**
 	 * Elige el vehiculo adecuado para el Pedido reciente, ademas pone el vehiculo al final del Arraylist. Puede lanzar Excepcion
-	 * pre:
-	 * @param pedido distinto de null
-	 * post
+	 * pre: pedido!=null
+	 * 
+	 * @param pedido para el cual se va a buscar el mejor vehiculo
+	 * 
+	 * post:
 	 * @return el mejor auto para el pedido
 	 * @throws FaltaDeVehiculoException en el caso que no haya vehiculos disponibles
 	 */
@@ -193,9 +199,11 @@ public class Empresa {
 	}
 	
 	/**
-	 * Toma el primer chofer disponible
-	 * pre:
-	 * @param pedido distinto de null
+	 * Toma el primer chofer disponible y lo vuelve a poner al fondo de la lista
+	 * pre: pedido!= null
+	 * 
+	 * @param pedido: pedido para el cual se seleccionara su chofer
+	 * 
 	 * post:
 	 * @return el mejor chofer
 	 */
@@ -310,11 +318,14 @@ public class Empresa {
 	
 	/**
 	 * clona el arraylist de viajes y los ordena segun el costo de cada uno
-	 * @param viajes2 distinto de null
+	 * 
+	 * Pre: viajes2!=null
+	 * @param viajes2 lista de los clientes a ser clonados y ordenados
+	 * 
+	 * Post:
 	 * @return un arraylist de viajes ordenados
 	 * @throws CloneNotSupportedException si no se pudo clonar
 	 */
-
 	
 	private ArrayList<IViaje> clonaYOrdenaViajes(ArrayList<IViaje> viajes2) throws CloneNotSupportedException {
 		ArrayList<IViaje> viajesClonados = new ArrayList<>();
@@ -447,10 +458,12 @@ public class Empresa {
 	
 	/**
 	 * Arma el listado de viajes de un chofer en un determinado periodo de tiempo
-	 * pre:
-	 * @param chofer distinto de null y existente
-	 * @param fechaInicio distinto de null 
-	 * @param fechaFinal distinto de null
+	 * 
+	 * pre: chofer!=null && chofer pertenece al arraylist (siempre cumple), fechaInicio!=null, fechaFinal!= null, fechaFinal>fechaInicio
+	 * @param chofer: chofer para el cual evaluar sus viajes
+	 * @param fechaInicio: fecha inicial para la cual buscar si un chofer hizo un viaje 
+	 * @param fechaFinal: fecha final para la cual buscar si un chofer hizo un viaje
+	 *
 	 * post:
 	 * @return un String con el listado para poder imprimir por pantalla
 	 */
@@ -468,9 +481,13 @@ public class Empresa {
 	
 	/**
 	 * Arma el listado de viajes de un cliente en un determinado periodo de tiempo
-	 * @param cliente distinto de null y existente
-	 * @param fechaInicio distinto de null
-	 * @param fechaFinal distinto de null
+	 * 
+	 * Pre: cliente!=null && cliente pertenece al arraylist (siempre cumple), fechaInicio!=null, fechaFinal!= null, fechaFinal>fechaInicio
+	 * 
+	 * @param cliente: cliente para el cual se evaluan sus viajes
+	 * @param fechaInicio: fecha inicial para la cual buscar si un chofer hizo un viaje 
+	 * @param fechaFinal: fecha final para la cual buscar si un chofer hizo un viaje
+	 * 
 	 * post:
 	 * @return un String con el listado para poder imprimir por pantalla
 	 */
@@ -507,8 +524,13 @@ public class Empresa {
 	
 	/**
 	 * Permite el cambio del nombre de chofer
-	 * @param documento distitno de "" y null
-	 * @param nombreNuevo distitno de "" y null
+	 * 
+	 * Pre: documento!= null && documento!="", nombreNuevo!= null && nombreNuevo!=""
+	 * 
+	 * @param documento: dni del chofer a cambiar el nombre
+	 * @param nombreNuevo: nuevo nombre del chofer
+	 * 
+	 * Post: El nombre del chofer cambia
 	 */
 	
 	public void cambioNombreChofer(String documento,String nombreNuevo) {
@@ -521,9 +543,11 @@ public class Empresa {
 	
 	/**
 	 * Cambia documento de chofer
-	 * pre:
-	 * @param documento distitno de "" y null
-	 * @param docNuevo distitno de "" y null
+	 * 
+	 * Pre: documento!= null && documento!="", docNuevo!= null && docNuevo!=""
+	 * 
+	 * @param documento: documento actual del chofer
+	 * @param docNuevo: nuevo documento del chofer
 	 * post: cambio de dni
 	 */
 	
@@ -537,9 +561,11 @@ public class Empresa {
 	
 	/**
 	 * Cambia contrasena de un usuario
-	 * pre:
-	 * @param user distitno de "" y null
-	 * @param contraNueva distitno de "" y null
+	 * pre: user distinto de "" y null, contraNueva distitno de "" y null
+	 * 
+	 * @param user: username a cambiarle su contrasena
+	 * @param contraNueva: nueva contrasena
+	 * 
 	 * post: cambio de contrasena
 	 */
 	public void cambioContrasena(String user, String contraNueva) {
@@ -552,9 +578,9 @@ public class Empresa {
 	
 	/**
 	 * Cambia nombre de un usuario
-	 * pre:
-	 * @param user distitno de "" y null
-	 * @param nombreNuevo distitno de "" y null
+	 * pre: user distinto de "" y null, nombreNuevo distitno de "" y null
+	 * @param user: usuario a cambiarle el nombre
+	 * @param nombreNuevo: nombre nuevo del usuario en cuestion
 	 * post: cambia el nombre
 	 */
 	public void cambioNombre(String user, String nombreNuevo) {
@@ -566,9 +592,11 @@ public class Empresa {
 	}
 	/**
 	 * Cambia el nombre de usuario de un cliente
-	 * pre:
-	 * @param user distitno de "" y null
-	 * @param userNuevo distitno de "" y null
+	 * pre: user distinto de "" y null, userNuevo distitno de "" y null
+	 * 
+	 * @param user: user a ser cambiado
+	 * @param userNuevo: nuevo user
+	 * 
 	 * post cambia el usuario
 	 */
 	public void cambioUser(String user, String userNuevo) {
