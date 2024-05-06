@@ -16,7 +16,7 @@ public class Pedido {
 	/**
 	 * Constructor de Pedido, recibe los requerimientos del cliente y los ordena
 	 * 
-	 * Pre: fecha= GregorianCalendar valida; zona != null && !=""; cantPasjeros>0, cliente!=null
+	 * Pre: fecha= GregorianCalendar valida; zona != null and !=""; cantPasjeros mayor a 0, cliente!=null
 	 * Post: Se crea el formulario de pedido
 	 * 
 	 * @param fecha: fecha y hora del pedido

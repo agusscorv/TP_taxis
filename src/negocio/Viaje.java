@@ -38,10 +38,10 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 	/**
 	 * Compara los costos del objeto actual de viaje con el que se manda como parametro 
 	 * 
-	 * Pre: obj =! null && obj tipo Viaje
+	 * Pre: obj =! null and obj tipo Viaje
 	 * Post: Se crea e inicia un nuevo viaje o propaga excepcion
 	 * 
-	 * @param pedido: es el formulario del pedido en el que se basa la solicitacion del viaje 
+	 * @param obj: es el viaje a compararse con con el actual 
 	 */
 	public int compareTo(Object obj) {
 		int rta = -1;

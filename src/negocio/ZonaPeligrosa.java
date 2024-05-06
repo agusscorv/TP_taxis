@@ -12,6 +12,7 @@ public class ZonaPeligrosa extends Viaje {
 	 * Post: Se crea e inicia un nuevo viaje o propaga excepcion
 	 * 
 	 * @param pedido: es el formulado del pedido en el que se basa la solicitacion del viaje 
+	 * 
 	 */
 	public ZonaPeligrosa(Pedido pedido)throws FaltaDeChoferException, FaltaDeVehiculoException {
 		super(pedido);

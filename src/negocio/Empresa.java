@@ -24,7 +24,7 @@ public class Empresa {
 	
 	/**
 	 * Ingresa el vehiculo al sistema y luego lo agrega al ArrayList.
-	 * pre: tipo!= null &&  tipo!="", patente!= null &&  patente!=""
+	 * pre: tipo!= null and tipo!="", patente!= null and  patente!=""
 	 * @param tipo: tipo de vehiculo a ser creado
 	 * @param patente: del vehiculo a ser creado
 	 * 
@@ -93,7 +93,7 @@ public class Empresa {
 	
 	/**
 	 * Agrega el cliente siempre que el mismo no exista, puede lanzar Excepcion
-	 * pre: user!= null &&  user!="", contrasena!= null &&  contrasena!="", nombre!= null &&  nombre!=""
+	 * pre: user!= null and  user!="", contrasena!= null and  contrasena!="", nombre!= null and  nombre!=""
 	 * 
 	 * @param user: username del cliente
 	 * @param contrasena: contrasena del usuario
@@ -101,7 +101,7 @@ public class Empresa {
 	 * 
 	 * post:agrega el cliente o lanza una excepcion
 	 * 
-	 * @throws ClienteExistente en el caso que el usuarioya se encuentre en el ArrayList
+	 * @throws ClienteExistenteException en el caso que el usuarioya se encuentre en el ArrayList
 	 */
 	public Cliente agregarCliente(String user, String contrasena, String nombre)throws ClienteExistenteException {
 		if (buscarElemento(this.clientes, user) == -1) {
@@ -124,7 +124,7 @@ public class Empresa {
 
 	/**
 	 * Metodo para buscar un cliente en el ArrayList a través del usuario
-	 * pre: clientes!= null, userBuscado!= null &&  userBuscado!=""
+	 * pre: clientes!= null, userBuscado!= null and  userBuscado!=""
 	 * 
 	 * @param clientes: lista en la cual se va a buscar a un determinado usuario
 	 * @param userBuscado: user a ser buscado en la lista
@@ -145,7 +145,7 @@ public class Empresa {
 	/**
 	 * Procesa el viaje solicitado por un Cliente existente en la lista de clientes (o propaga la excepcion)
 	 *  
-	 * Pre: fecha= GregorianCalendar valida; zona != null && !=""; cantPasjeros>0, cliente!=null
+	 * Pre: fecha= GregorianCalendar valida; zona != null and !=""; cantPasjeros>0, cliente!=null
 	 * Post: propaga una excepcion o solicita un viaje y lo agrega a la lista de viajes
 	 *  
 	 * @param fecha: fecha y hora del pedido
@@ -423,7 +423,7 @@ public class Empresa {
 	  }
 	
 	/** Calcula el puntaje de cada chofer para un mes especifico dado en base a los viajes realizados por los choferes y su distancia recorrida
-	 * pre: mes>=1, mes<=12
+	 * pre: mes mayor o igual 1, mes menor o igual 12
 	 * post: actualiza el puntaje del mes especifico dado de cada chofer
 	 * @param mes donde se calcula el puntaje
 	 */
@@ -459,7 +459,7 @@ public class Empresa {
 	/**
 	 * Arma el listado de viajes de un chofer en un determinado periodo de tiempo
 	 * 
-	 * pre: chofer!=null && chofer pertenece al arraylist (siempre cumple), fechaInicio!=null, fechaFinal!= null, fechaFinal>fechaInicio
+	 * pre: chofer!=null and chofer pertenece al arraylist (siempre cumple), fechaInicio!=null, fechaFinal!= null, fechaFinal mayor a fechaInicio
 	 * @param chofer: chofer para el cual evaluar sus viajes
 	 * @param fechaInicio: fecha inicial para la cual buscar si un chofer hizo un viaje 
 	 * @param fechaFinal: fecha final para la cual buscar si un chofer hizo un viaje
@@ -482,7 +482,7 @@ public class Empresa {
 	/**
 	 * Arma el listado de viajes de un cliente en un determinado periodo de tiempo
 	 * 
-	 * Pre: cliente!=null && cliente pertenece al arraylist (siempre cumple), fechaInicio!=null, fechaFinal!= null, fechaFinal>fechaInicio
+	 * Pre: cliente!=null and cliente pertenece al arraylist (siempre cumple), fechaInicio!=null, fechaFinal!= null, fechaFinal mayor a fechaInicio
 	 * 
 	 * @param cliente: cliente para el cual se evaluan sus viajes
 	 * @param fechaInicio: fecha inicial para la cual buscar si un chofer hizo un viaje 
@@ -525,7 +525,7 @@ public class Empresa {
 	/**
 	 * Permite el cambio del nombre de chofer
 	 * 
-	 * Pre: documento!= null && documento!="", nombreNuevo!= null && nombreNuevo!=""
+	 * Pre: documento!= null and documento!="", nombreNuevo!= null and nombreNuevo!=""
 	 * 
 	 * @param documento: dni del chofer a cambiar el nombre
 	 * @param nombreNuevo: nuevo nombre del chofer
@@ -544,7 +544,7 @@ public class Empresa {
 	/**
 	 * Cambia documento de chofer
 	 * 
-	 * Pre: documento!= null && documento!="", docNuevo!= null && docNuevo!=""
+	 * Pre: documento!= null and documento!="", docNuevo!= null and docNuevo!=""
 	 * 
 	 * @param documento: documento actual del chofer
 	 * @param docNuevo: nuevo documento del chofer

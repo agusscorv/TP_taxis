@@ -21,8 +21,10 @@ public abstract class Vehiculo {
 
 	/** determina el valor de la prioridad de un vehiculo determinado, siguiendo una serie de pasos, contemplando las condiciones del tipo de pedido
 	 * pre: debe existir un pedido para realizar un viaje
-	 * post: devuelve un int que es la prioridad del tipo de vehiculo para realizar un viaje
+	 * 
 	 * @param pedido: pedido para realizar un viaje con un vehiculo
+	 * 
+	 * @return devuelve un int que es la prioridad del tipo de vehiculo para realizar un viaje
 	 */
 	public int getPrioridad(Pedido pedido) {
 		boolean cond1 = this.checkCantPasajeros(pedido);
@@ -68,7 +70,7 @@ public abstract class Vehiculo {
 	abstract int calculo(Pedido pedido);
 
 	/** Obtiene la patente de dicho vehiculo
-	 * post: devuelve un string que es la patente que identifica a dicho vehiculo
+	 * @return devuelve un string que es la patente que identifica a dicho vehiculo
 	 */
 	public String getPatente() {
 		return patente;
