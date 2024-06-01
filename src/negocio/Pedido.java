@@ -12,6 +12,7 @@ public class Pedido {
 	private double distancia;
 	private GregorianCalendar fecha;
 	private Cliente cliente;
+	private String condicionPedido;
 	
 	/**
 	 * Constructor de Pedido, recibe los requerimientos del cliente y los ordena

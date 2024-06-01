@@ -26,7 +26,7 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 		
 		this.pedido= pedido;
 		this.costo= costoBase; 
-		this.estado="Solicidato";
+		this.estado="Solicidato";  //separar con vehiculo e iniciado
 		
 		this.vehiculo= empresa.seleccionaMejorVehiculo(pedido); //throws FaltaDeVehiculoException
 		this.estado="Con Vehiculo";

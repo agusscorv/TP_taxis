@@ -49,19 +49,19 @@ public class Prueba {
 			
 			
 			//METODOS
-			//System.out.println(empresa.muestraViajesCliente(cliente1));
-			//System.out.println(empresa.muestraViajesCliente(cliente2));
+			System.out.println(empresa.muestraViajesCliente(cliente1));
+			System.out.println(empresa.muestraViajesCliente(cliente2));
 			//System.out.println(empresa.muestraViajes());
-			//System.out.println(empresa.muestraChoferes());
-			//System.out.println(empresa.muestraClientes());
-			//System.out.println(empresa.muestraVehiculos());
-			//System.out.println(empresa.costosTotalesSalarios());
-			//System.out.println(empresa.costosTotalesSalarios());
-			//System.out.println( empresa.puntajeChoferes(4) );
-            //System.out.println(empresa.viajesChoferPeriodo(chofer2, new GregorianCalendar(2024, 3, 1), new GregorianCalendar(2024, 4, 4)));
-            //System.out.println(empresa.viajesClientePeriodo(cliente1, new GregorianCalendar(2024, 3, 1), new GregorianCalendar(2024, 4, 4)));
+			System.out.println(empresa.muestraChoferes());
+			System.out.println(empresa.muestraClientes());
+			System.out.println(empresa.muestraVehiculos());
+			System.out.println(empresa.costosTotalesSalarios());
+			System.out.println(empresa.costosTotalesSalarios());
+			System.out.println( empresa.puntajeChoferes(4) );
+            System.out.println(empresa.viajesChoferPeriodo(chofer2, new GregorianCalendar(2024, 3, 1), new GregorianCalendar(2024, 4, 4)));
+            System.out.println(empresa.viajesClientePeriodo(cliente1, new GregorianCalendar(2024, 3, 1), new GregorianCalendar(2024, 4, 4)));
 			
-			//System.out.println(empresa.viajesChoferPeriodo(chofer1, new GregorianCalendar(2024,3,3), new GregorianCalendar(2024,4,4)) );
+			System.out.println(empresa.viajesChoferPeriodo(chofer1, new GregorianCalendar(2024,3,3), new GregorianCalendar(2024,4,4)) );
 			
 			
 		} catch (FaltaDeChoferException | FaltaDeVehiculoException | ZonaInexistenteException e) {

@@ -22,6 +22,15 @@ public class Empresa {
 		this.viajes = new ArrayList<>();
 	}
 	
+	//NUEVO
+	public ArrayList<Vehiculo> copiarVehiculos() {
+        ArrayList<Vehiculo> vehiculosCopia = new ArrayList<>();
+        for (int i = 0; i < vehiculos.size(); i++) {
+            vehiculosCopia.add(vehiculos.get(i));
+        }
+        return vehiculosCopia;
+    }
+	
 	/**
 	 * Ingresa el vehiculo al sistema y luego lo agrega al ArrayList.
 	 * pre: tipo!= null and tipo!="", patente!= null and  patente!=""
@@ -158,10 +167,12 @@ public class Empresa {
 	
 	public void solicitaViaje(double distancia, GregorianCalendar fecha, String zona, boolean mascotas, boolean baul, int cantPasajeros, Cliente cliente) 
 			throws FaltaDeChoferException, FaltaDeVehiculoException, ZonaInexistenteException{
+		
+		
 		Pedido pedido= new Pedido(distancia, fecha, zona, mascotas, baul, cantPasajeros, cliente);
 		IViaje viaje= (IViaje) fabricaViajes.getViaje(pedido);
 		viajes.add(viaje);
-		viaje.Pagado();
+		//sacarlo de aca => viaje.Pagado();
 	}
 	
 	public static void setCostoBaseViaje(float costoBase) {
