@@ -33,17 +33,29 @@ public class RecursoCompartido {
         return viaje;
     }
 
-	public synchronized void pagarViaje(Viaje viaje) {
+	public synchronized void asignarVehiculoAViaje(Vehiculo vehiculo) {
+		//asigna vehiculo
+	}
+	
+	public synchronized void asignarViajeAChofer(Chofer chofer) {
+		//asigna chofer
+	}
+	
+	public void iniciarViaje(Chofer chofer) { //O Viaje viaje?
+        // Condicion iniciado
+		//Recorre la lista de todos los viajes y se fija al del chofer enviado por choferThread el viaje que esta en condicion de solicitado y lo pasa a iniciado
+    }
+	
+	public void pagarViaje(Viaje viaje) {
         // Condicion pagado
     }
 	
-	public synchronized void finalizarViaje(Viaje viaje) {
-        //lo hace el chofer
+	public void finalizarViaje(Chofer chofer) {  //O Viaje viaje?
+        ////Recorre la lista de todos los viajes y se fija al del chofer enviado por choferThread el viaje que esta en condicion de pagado y lo pasa a finalizado
     }
 	
-	public synchronized void asignarVehiculoAViaje() {
-		//asigna vehiculo
-	}
+	
+
 	
 
 }

@@ -43,6 +43,7 @@ public class Cliente {
 		this.contrasena = contrasena;
 	}
 
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}

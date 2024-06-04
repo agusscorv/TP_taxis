@@ -22,8 +22,9 @@ public class ClienteThread extends Thread{
      
         	while (recursoCompartido.estaActivo()) {
         		recursoCompartido.nuevoPedido(); //si no lo acepta, lanzara una excepcion //debe ejecutar el SolicitaViaje de Empresa
-        		recursoCompartido.pagarViaje(pedido.getViaje());
-       		}
+        		recursoCompartido.pagarViaje(pedido.getViaje()); 
+        		                            //Deberia ser el ultimo viaje de la lista
+       		}                                
 
 
        		
