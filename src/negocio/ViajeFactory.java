@@ -11,8 +11,7 @@ public class ViajeFactory {
 	 * 
 	 * @throws ZonaInexistenteException = se lanza en caso de que la zona del pedido no sea una zona existente en el sistema
 	 */
-	public IViaje getViaje(Pedido pedido)
-		throws FaltaDeChoferException, FaltaDeVehiculoException, ZonaInexistenteException{
+	public IViaje getViaje(Pedido pedido)throws FaltaDeChoferException, FaltaDeVehiculoException, ZonaInexistenteException{	
 		
 		IViaje rta=null; 
 		IViaje encapsulado=null; 

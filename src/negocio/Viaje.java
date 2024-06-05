@@ -22,17 +22,18 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 	 * 
 	 * @param pedido: es el formulado del pedido en el que se basa la solicitacion del viaje 
 	 */
-	public Viaje(Pedido pedido)throws FaltaDeChoferException, FaltaDeVehiculoException {
+	public Viaje(Pedido pedido) throws FaltaDeChoferException, FaltaDeVehiculoException{  
 		
 		this.pedido= pedido;
 		this.costo= costoBase; 
 		this.estado="Solicidato";  //separar con vehiculo e iniciado
 		
-		this.vehiculo= empresa.seleccionaMejorVehiculo(pedido); //throws FaltaDeVehiculoException
-		this.estado="Con Vehiculo";
+		//DE ACA PARA ABAJO NO VA ACA EN LA SEGUNDA PARTE
+		//this.vehiculo= empresa.seleccionaMejorVehiculo(pedido); //throws FaltaDeVehiculoException
+		//this.estado="Con Vehiculo";
 		
-		this.chofer= empresa.seleccionaChofer(pedido); //throws FaltaDeChoferException
-		this.estado="Iniciado";
+		//this.chofer= empresa.seleccionaChofer(pedido); //throws FaltaDeChoferException
+		//this.estado="Iniciado";
 	}
 	
 	/**
@@ -130,6 +131,18 @@ public abstract class Viaje implements IViaje, Cloneable, Comparable {
 	public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
-		
+
+	
+	//nuevo
+	public void setCondicion(String condicion) {
+		this.estado=condicion;
+	}
+
+	public void setChofer(Chofer chofer) {
+		this.chofer = chofer;
+	}
+	
+	
+	
 }	
 

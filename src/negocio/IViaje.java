@@ -4,6 +4,9 @@ import java.util.GregorianCalendar;
 
 public interface IViaje {
 	
+	public void setCondicion(String condicion); //NUEVO
+	
+	public String getEstado();
 	
 	public int getCantPasajeros();
 	
@@ -45,5 +48,8 @@ public interface IViaje {
 	public void Pagado();
 	
 	public Object clone() throws CloneNotSupportedException;
+
+	public void setChofer(Chofer chofer);
+	
 	
 }

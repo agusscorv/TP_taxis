@@ -6,6 +6,7 @@ package negocio;
 public abstract class Vehiculo {
 	private int maxPasajeros;
 	private String patente;
+	private boolean ocupado; //NUEVOs
 	
 	/**
 	 * Constructor del vehiculo
@@ -17,6 +18,7 @@ public abstract class Vehiculo {
 	public Vehiculo(String patente,int maxPasajeros){
 		this.patente=patente;
 		this.maxPasajeros=maxPasajeros;
+		this.ocupado=false;
 	}
 
 	/** determina el valor de la prioridad de un vehiculo determinado, siguiendo una serie de pasos, contemplando las condiciones del tipo de pedido
@@ -75,4 +77,13 @@ public abstract class Vehiculo {
 	public String getPatente() {
 		return patente;
 	}
+
+	public boolean isOcupado() {
+		return ocupado;
+	}
+
+	public void setOcupado(boolean ocupado) {
+		this.ocupado = ocupado;
+	}
+	
 }

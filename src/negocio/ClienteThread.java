@@ -18,23 +18,26 @@ public class ClienteThread extends Thread{
 
 
 	public void run() {
-        try {
-     
-        	while (recursoCompartido.estaActivo()) {
-        		recursoCompartido.nuevoPedido(); //si no lo acepta, lanzara una excepcion //debe ejecutar el SolicitaViaje de Empresa
-        		recursoCompartido.pagarViaje(pedido.getViaje()); 
-        		                            //Deberia ser el ultimo viaje de la lista
-       		}                                
-
-
-       		
-       
-        //hacer un toString para las ventanas para cada excepcionlanzada y qie diga pedido rechazado
-            
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+		boolean condPedido=false;
+		
+		while (recursoCompartido.getEstado()) {
+			try {
+				condPedido = this.recursoCompartido.aceptarPedido(pedido);
+				if (condPedido) {
+					this.recursoCompartido.solicitarViaje(pedido);
+					while (!this.recursoCompartido.getCondicionViaje(pedido).equals("iniciado"))
+						wait();
+					this.recursoCompartido.pagarViaje(pedido); 
+				}
+				else {
+					this.recursoCompartido.rechazado(); //crear metodo en RC
+				}
+				
+			}catch (InterruptedException e) {
+	            e.printStackTrace();
+	        }
+				
+        } 
     }
 }
 

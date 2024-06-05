@@ -22,6 +22,8 @@ public class Empresa {
 		this.viajes = new ArrayList<>();
 	}
 	
+	
+	
 	//NUEVO
 	public ArrayList<Vehiculo> copiarVehiculos() {
         ArrayList<Vehiculo> vehiculosCopia = new ArrayList<>();
@@ -165,14 +167,12 @@ public class Empresa {
 	 * @param cliente: cliente que hizo el pedido
 	 */
 	
-	public void solicitaViaje(double distancia, GregorianCalendar fecha, String zona, boolean mascotas, boolean baul, int cantPasajeros, Cliente cliente) 
-			throws FaltaDeChoferException, FaltaDeVehiculoException, ZonaInexistenteException{
-		
-		
-		Pedido pedido= new Pedido(distancia, fecha, zona, mascotas, baul, cantPasajeros, cliente);
+	//modificado para la segunda parte
+	
+	public IViaje solicitaViaje(Pedido pedido) throws FaltaDeChoferException, FaltaDeVehiculoException, ZonaInexistenteException{
 		IViaje viaje= (IViaje) fabricaViajes.getViaje(pedido);
 		viajes.add(viaje);
-		//sacarlo de aca => viaje.Pagado();
+		return viaje;
 	}
 	
 	public static void setCostoBaseViaje(float costoBase) {
@@ -626,5 +626,11 @@ public class Empresa {
 
         return instancia;
     }
+
+
+	//NUEVO
+	public void setCondicion(int indiceDelViaje, String condicion) {
+		viajes.get(indiceDelViaje).setCondicion(condicion);
+	}
 	
 }

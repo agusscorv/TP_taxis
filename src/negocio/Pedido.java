@@ -65,6 +65,11 @@ public class Pedido {
 		return fecha;
 	}
 	
+	public String getUserCliente() {
+		return this.cliente.getUser();
+		
+	}
+	
 	
 	
 }
