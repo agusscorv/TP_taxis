@@ -8,7 +8,9 @@ public class RecursoCompartido extends Observable{
 	private ArrayList<Vehiculo> vehiculos;
 	private ArrayList<IViaje> viajes;
 	private Empresa empresa;
-
+	private int cantChoferes; // inicializar
+	private int cantClientes; //inicializar y tambien hacer el for en ClienteThread
+	
 	public RecursoCompartido(ArrayList<Vehiculo> vehiculos, Empresa empresa) {
 		super();
 		this.estado = true;
@@ -60,8 +62,8 @@ public class RecursoCompartido extends Observable{
 		this.viajes.add(viaje);
 	}
 
-	public synchronized void asignarVehiculoAViaje(Vehiculo vehiculo) {
-		
+	public synchronized void asignarVehiculoAViaje(Vehiculo vehiculo) {		
+		this.empresa.seleccionaMejorVehiculo(pedido);	
 	}
 		
 
@@ -89,15 +91,18 @@ public class RecursoCompartido extends Observable{
 		
 	}
 
-	public void pagarViaje(Pedido pedido) {
-		int indiceDelViaje=0;
+	public void pagarViaje(Pedido pedido) { //modificar para ver si quedo colgado alguni y no hay mas choferes
+		int indiceDelViaje=-1;
 		for (int i = 0; i < viajes.size(); i++) {
 			if (viajes.get(i).getCliente().equals(pedido.getUserCliente()) && viajes.get(i).getEstado().equals("iniciado")) {
 				indiceDelViaje=i;
 			}
 		}
-		viajes.get(indiceDelViaje).setCondicion("pagado"); //actualiza arraylist del RC
-		this.empresa.setCondicion(indiceDelViaje,"pagado");//actualiza arraylist de Empresa
+		if(indiceDelViaje != -1) {
+			viajes.get(indiceDelViaje).setCondicion("pagado"); //actualiza arraylist del RC
+			this.empresa.setCondicion(indiceDelViaje,"pagado");//actualiza arraylist de Empresa
+		}
+		else
 	}
 
 	public void finalizarViaje(Chofer chofer) {
@@ -124,6 +129,15 @@ public class RecursoCompartido extends Observable{
 	public void rechazado() {
 		// armar string para la ventan de pedido rechazado
 
+	}
+	
+	public void viajeAbortado(Pedido pedido) {
+		for (int i = 0; i < viajes.size(); i++) {
+			if (viajes.get(i).getCliente().equals(pedido.getUserCliente()) && viajes.get(i).getEstado().equals("con vehiculo")) {
+				viajes.get(i).setCondicion("abortado");
+			}
+		}
+		
 	}
 
 }
