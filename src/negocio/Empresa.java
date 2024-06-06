@@ -114,14 +114,14 @@ public class Empresa {
 	 * 
 	 * @throws ClienteExistenteException en el caso que el usuarioya se encuentre en el ArrayList
 	 */
-	public Cliente agregarCliente(String user, String contrasena, String nombre)throws ClienteExistenteException {
+	public Cliente agregarCliente(String user, String contrasena, String nombre) throws ClienteExistenteException {
 		if (buscarElemento(this.clientes, user) == -1) {
 			Cliente cliente = new Cliente(user, contrasena, nombre);
 			clientes.add(cliente);
-			return cliente;
+			return cliente;   //HACE FALTA QUE RETORNE CLIENTE?, HABRIA QUE HACERLO VOID
 		}
 		else {
-			throw new ClienteExistenteException();
+			throw new ClienteExistenteException(); //NOTIFICAR A LA VISTA QUE YA EXISTE EL CLIENTE, NUEVO BOTON
 		}	
 	}
 	
@@ -173,6 +173,17 @@ public class Empresa {
 		IViaje viaje= (IViaje) fabricaViajes.getViaje(pedido);
 		viajes.add(viaje);
 		return viaje;
+	}
+	
+	public void pagarViaje(Pedido pedido) {
+		int indiceDelViaje=0;
+		for (int i = 0; i < viajes.size(); i++) {
+			if (viajes.get(i).getCliente().equals(pedido.getUserCliente()) && viajes.get(i).getEstado().equals("iniciado")) {
+				indiceDelViaje=i;
+			}
+		}
+		viajes.get(indiceDelViaje).setCondicion("pagado"); //actualiza arraylist del RC
+		this.setCondicion(indiceDelViaje,"pagado");//actualiza arraylist de Empresa
 	}
 	
 	public static void setCostoBaseViaje(float costoBase) {

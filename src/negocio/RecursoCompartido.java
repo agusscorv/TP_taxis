@@ -89,15 +89,8 @@ public class RecursoCompartido extends Observable{
 		
 	}
 
-	public void pagarViaje(Pedido pedido) {
-		int indiceDelViaje=0;
-		for (int i = 0; i < viajes.size(); i++) {
-			if (viajes.get(i).getCliente().equals(pedido.getUserCliente()) && viajes.get(i).getEstado().equals("iniciado")) {
-				indiceDelViaje=i;
-			}
-		}
-		viajes.get(indiceDelViaje).setCondicion("pagado"); //actualiza arraylist del RC
-		this.empresa.setCondicion(indiceDelViaje,"pagado");//actualiza arraylist de Empresa
+	public synchronized void pagarViaje(Pedido pedido) {
+		this.empresa.pagarViaje(pedido);
 	}
 
 	public void finalizarViaje(Chofer chofer) {
