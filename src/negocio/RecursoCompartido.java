@@ -1,8 +1,9 @@
 package negocio;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class RecursoCompartido {
+public class RecursoCompartido extends Observable{
 	private boolean estado;
 	private ArrayList<Vehiculo> vehiculos;
 	private ArrayList<IViaje> viajes;
@@ -54,10 +55,9 @@ public class RecursoCompartido {
 	}
 	
 	//NUEVO   deberia sacar los throw del metodo empresa, no?
-	public synchronized IViaje solicitarViaje(Pedido pedido) {
+	public synchronized void solicitarViaje(Pedido pedido) throws FaltaDeChoferException, FaltaDeVehiculoException, ZonaInexistenteException {
 		IViaje viaje= this.empresa.solicitaViaje(pedido);
 		this.viajes.add(viaje);
-		return viaje;
 	}
 
 	public synchronized void asignarVehiculoAViaje(Vehiculo vehiculo) {

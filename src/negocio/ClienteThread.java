@@ -32,7 +32,6 @@ public class ClienteThread extends Thread{
 				else {
 					this.recursoCompartido.rechazado(); //crear metodo en RC
 				}
-				
 			}catch (InterruptedException e) {
 	            e.printStackTrace();
 	        }
