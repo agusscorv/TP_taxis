@@ -213,6 +213,7 @@ public class Empresa {
         }
 		if(mejor != null) {
 			vehiculos.remove(k);	//pone el "mejor" al final 
+			vehiculos.get(k).setOcupado(true); //nueva linea
 			vehiculos.add(mejor);
 		}
 		else

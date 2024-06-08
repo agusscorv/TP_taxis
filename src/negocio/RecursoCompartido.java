@@ -8,7 +8,9 @@ public class RecursoCompartido extends Observable{
 	private ArrayList<Vehiculo> vehiculos;
 	private ArrayList<IViaje> viajes;
 	private Empresa empresa;
-
+	private int cantChoferes; // inicializar
+	private int cantClientes; //inicializar y tambien hacer el for en ClienteThread
+	
 	public RecursoCompartido(ArrayList<Vehiculo> vehiculos, Empresa empresa) {
 		super();
 		this.estado = true;
@@ -60,8 +62,8 @@ public class RecursoCompartido extends Observable{
 		this.viajes.add(viaje);
 	}
 
-	public synchronized void asignarVehiculoAViaje(Vehiculo vehiculo) {
-		
+	public synchronized void asignarVehiculoAViaje(Vehiculo vehiculo) {		
+		this.empresa.seleccionaMejorVehiculo(pedido);	
 	}
 		
 
@@ -91,7 +93,7 @@ public class RecursoCompartido extends Observable{
 
 	public synchronized void pagarViaje(Pedido pedido) {
 		this.empresa.pagarViaje(pedido);
-	}
+
 
 	public void finalizarViaje(Chofer chofer) {
 		boolean encontrado=false;
@@ -117,6 +119,15 @@ public class RecursoCompartido extends Observable{
 	public void rechazado() {
 		// armar string para la ventan de pedido rechazado
 
+	}
+	
+	public void viajeAbortado(Pedido pedido) {
+		for (int i = 0; i < viajes.size(); i++) {
+			if (viajes.get(i).getCliente().equals(pedido.getUserCliente()) && viajes.get(i).getEstado().equals("con vehiculo")) {
+				viajes.get(i).setCondicion("abortado");
+			}
+		}
+		
 	}
 
 }

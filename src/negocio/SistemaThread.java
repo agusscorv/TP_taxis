@@ -13,6 +13,8 @@ public class SistemaThread extends Thread{
         while (recursoCompartido.getEstado()) {
             try {
                
+            	
+            	
                 
             } catch (InterruptedException e) {    
             }
