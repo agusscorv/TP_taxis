@@ -1,0 +1,118 @@
+package negocio;
+
+import java.util.GregorianCalendar;
+
+public class ViajeDTO {
+    private String estado;
+    private VehiculoDTO vehiculo;
+    private PedidoDTO pedido;
+    private ChoferDTO chofer;
+    private double costo;
+    private GregorianCalendar fecha;
+    private String zona;
+    private double distancia;
+    private ClienteDTO cliente;
+    private boolean mascota;
+    private boolean baul;
+    private int cantPasajeros;
+
+    public ViajeDTO() {
+        // TODO Auto-generated constructor stub
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public VehiculoDTO getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(VehiculoDTO vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+
+    public PedidoDTO getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(PedidoDTO pedido) {
+        this.pedido = pedido;
+    }
+
+    public ChoferDTO getChofer() {
+        return chofer;
+    }
+
+    public void setChofer(ChoferDTO chofer) {
+        this.chofer = chofer;
+    }
+
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
+    }
+
+    public GregorianCalendar getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(GregorianCalendar fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getZona() {
+        return zona;
+    }
+
+    public void setZona(String zona) {
+        this.zona = zona;
+    }
+
+    public double getDistancia() {
+        return distancia;
+    }
+
+    public void setDistancia(double distancia) {
+        this.distancia = distancia;
+    }
+
+    public ClienteDTO getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteDTO cliente) {
+        this.cliente = cliente;
+    }
+
+    public boolean isMascota() {
+        return mascota;
+    }
+
+    public void setMascota(boolean mascota) {
+        this.mascota = mascota;
+    }
+
+    public boolean isBaul() {
+        return baul;
+    }
+
+    public void setBaul(boolean baul) {
+        this.baul = baul;
+    }
+
+    public int getCantPasajeros() {
+        return cantPasajeros;
+    }
+
+    public void setCantPasajeros(int cantPasajeros) {
+        this.cantPasajeros = cantPasajeros;
+    }
+}
