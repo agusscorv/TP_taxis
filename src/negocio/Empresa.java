@@ -14,6 +14,7 @@ public class Empresa {
 	private ViajeFactory fabricaViajes=new ViajeFactory();
 	public GregorianCalendar hoy = new GregorianCalendar();
 	private static Empresa instancia = null;
+	IPersistencia persistencia = new PersistenciaXML();
 	
 	public Empresa() {
 		this.vehiculos = new ArrayList<>();
@@ -21,7 +22,22 @@ public class Empresa {
 		this.clientes = new ArrayList<>();
 		this.viajes = new ArrayList<>();
 	}
-	
+	 public void lecturaArchivo() throws IOException, ClassNotFoundException{
+	        persistencia.abrirInput("info.xml");
+        	EmpresaDTO empresa = (EmpresaDTO) persistencia.leer();
+        	ConvertirDTO.empresaDTOToEmpresa(empresa);
+        	persistencia.cerrarInput();
+    
+	}
+	public void escrituraArchivo(){
+    		try {
+      		  persistencia.abrirOutput("info.xml");
+      		  EmpresaDTO empresa = ConvertirDTO.empresaToEmpresaDTO(Empresa.obtenerInstancia());
+      		  persistencia.escribir(empresa);
+       		   persistencia.cerrarOutput();
+    		} catch (IOException e) {        
+       			 e.printStackTrace();
+  		  }
 	
 	
 	//NUEVO
