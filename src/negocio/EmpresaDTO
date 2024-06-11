@@ -1,0 +1,90 @@
+package negocio;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+
+public class EmpresaDTO implements Serializable {
+
+
+	private static final long serialVersionUID = 1L;
+	private ArrayList<VehiculoDTO> vehiculos;
+	private ArrayList<ChoferDTO> choferes;
+	private ArrayList<ClienteDTO> clientes;
+	private ArrayList<ViajeDTO> viajes;
+	private VehiculoFactory fabrica;
+	private ViajeFactory fabricaViajes=new ViajeFactory();
+	public GregorianCalendar hoy = new GregorianCalendar();
+	private static Empresa instancia = null;
+	
+	public EmpresaDTO() {
+
+	}
+	
+	public ArrayList<VehiculoDTO> getVehiculos() {
+		return vehiculos;
+	}
+
+	public void setVehiculos(ArrayList<VehiculoDTO> vehiculos) {
+		this.vehiculos = vehiculos;
+	}
+
+	public ArrayList<ChoferDTO> getChoferes() {
+		return choferes;
+	}
+
+	public void setChoferes(ArrayList<ChoferDTO> choferes) {
+		this.choferes = choferes;
+	}
+
+	public ArrayList<ClienteDTO> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(ArrayList<ClienteDTO> clientes) {
+		this.clientes = clientes;
+	}
+
+	public ArrayList<ViajeDTO> getViajes() {
+		return viajes;
+	}
+
+	public void setViajes(ArrayList<ViajeDTO> viajes) {
+		this.viajes = viajes;
+	}
+
+	public VehiculoFactory getFabrica() {
+		return fabrica;
+	}
+
+	public void setFabrica(VehiculoFactory fabrica) {
+		this.fabrica = fabrica;
+	}
+
+	public ViajeFactory getFabricaViajes() {
+		return fabricaViajes;
+	}
+
+	public void setFabricaViajes(ViajeFactory fabricaViajes) {
+		this.fabricaViajes = fabricaViajes;
+	}
+
+	public GregorianCalendar getHoy() {
+		return hoy;
+	}
+
+	public void setHoy(GregorianCalendar hoy) {
+		this.hoy = hoy;
+	}
+
+	public static Empresa getInstancia() {
+		return instancia;
+	}
+
+	public static void setInstancia(Empresa instancia) {
+		EmpresaDTO.instancia = instancia;
+	}
+	
+	
+
+}
