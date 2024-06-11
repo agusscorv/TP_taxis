@@ -1,0 +1,66 @@
+package negocio;
+
+import java.io.Serializable;
+import java.util.GregorianCalendar;
+
+public class ViajeDTO implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private String estado;
+	private VehiculoDTO vehiculo;
+	private PedidoDTO pedido;
+	private ChoferDTO chofer;
+	private double costo;
+	private static float costoBase= 1000;
+	private Empresa EmpresaDTO = Empresa.obtenerInstancia();
+
+    public ViajeDTO() {
+        // TODO Auto-generated constructor stub
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public VehiculoDTO getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculoDTO(VehiculoDTO vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+
+    public PedidoDTO getPedido() {
+        return pedido;
+    }
+
+    public void setPedidoDTO(PedidoDTO pedido) {
+        this.pedido = pedido;
+    }
+
+    public ChoferDTO getChofer() {
+        return chofer;
+    }
+
+    public void setChofer(ChoferDTO chofer) {
+        this.chofer = chofer;
+    }
+
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
+    }
+
+    public boolean isBaul() {
+        return pedido.isBaul();
+    }
+	public boolean isMascota() {
+		return pedido.isMascota();
+	}
+}
